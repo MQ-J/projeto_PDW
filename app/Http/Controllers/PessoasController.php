@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pessoas;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isNull;
+
 class PessoasController extends Controller
 {
     /**
@@ -55,6 +57,23 @@ class PessoasController extends Controller
         return response()->json([
             'errors' => false,
             'data' => $pessoa
+        ]);
+    }
+
+    /**
+     * Pesquisa os clientes pelo nome
+     * 
+     * @param  \App\Models\Pessoas  $pessoas
+     * @return \Illuminate\Http\Response
+     */
+    public function showNome($nome = null)
+    {
+        $pessoas = Pessoas::where('nome', $nome)->get();
+        
+
+        return response()->json([
+            'errors' => false,
+            'data' => $pessoas
         ]);
     }
 
