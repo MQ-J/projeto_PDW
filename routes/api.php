@@ -29,6 +29,11 @@ Route::get(
     [PessoasController::class, 'show']
 );
 
+Route::get(
+    '/pessoas/shownome/{nome}',
+    [PessoasController::class, 'showNome']
+);
+
 Route::post(
     '/pessoas/update/{id}',
     [PessoasController::class, 'update']
