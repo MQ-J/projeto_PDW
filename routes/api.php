@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PessoasController;
 use App\Http\Controllers\SllurpController;
+use App\Http\Controllers\ReactMobileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,4 +53,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post(
     'sllurp/getconnection',
     [SllurpController::class, 'getconnection']
+);
+
+
+Route::get(
+    '/ReactMobile/getUsers',
+    [ReactMobileController::class, 'getUsers']
 );
