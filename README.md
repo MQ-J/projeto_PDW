@@ -14,7 +14,7 @@ Teste de integração entre a biblioteca Slurp, em python, com uma aplicação P
 
 - **[Ver sua própria requisição (POST)](https://polar-shelf-77439.herokuapp.com/api/sllurp/getconnection)**
 
-## Banco de dados
+### Banco de dados
 
 Operações CRUD com banco de dados usando API.
 
@@ -37,22 +37,22 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 1. primeiro tenha o composer instalado em sua maquina;
 Recomendo o POSTMAN ou INSOMNIA para os testes;
 
------console---------------------------------------------
+```console
 - git clone https://github.com/igor-mondoni/laravel-cad-cliente.git
----------------------------------------------------------
+```
 
 2. Acesse a pasta que foi gerada;
 
------console---------------------------------------------
+```console
 - composer install
 - php artisan serve
----------------------------------------------------------
+```
 
 3. Configure o .env para acessar um banco de dados valido
 
------console---------------------------------------------
+```console
 - php artisan migrate
----------------------------------------------------------
+```
 
 4. Rotas:
 
