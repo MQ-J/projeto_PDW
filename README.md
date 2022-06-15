@@ -1,20 +1,20 @@
-## Backend de API's Laravel
+# Backend de API's Laravel
 
 Esta aplicação reune APIS que funcionam como backend para outros projetos
 
-### ReactMobile
+## ReactMobile
 
 Aplicação em React, com suporte para ser desenvolvida em dispositivos mobile por meio do app "Spck NodeJS".
 
 - **[Usuários (GET)](https://polar-shelf-77439.herokuapp.com/api/ReactMobile/getUsers)**
 
-### Slurp
+## Slurp
 
 Teste de integração entre a biblioteca Slurp, em python, com uma aplicação PHP.
 
 - **[Ver sua própria requisição (POST)](https://polar-shelf-77439.herokuapp.com/api/sllurp/getconnection)**
 
-### Banco de dados
+## Banco de dados
 
 Operações CRUD com banco de dados usando API.
 
