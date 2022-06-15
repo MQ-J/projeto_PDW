@@ -1,4 +1,4 @@
-# Backend de API's Laravel
+# Backend de API's com Laravel
 
 Esta aplicação reune APIS que funcionam como backend para outros projetos
 
