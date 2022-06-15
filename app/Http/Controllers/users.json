@@ -1,0 +1,16 @@
+{
+    "users": [
+        {
+            "name": "Querino",
+            "pwd": "123"
+        },
+        {
+            "name": "root",
+            "pwd": "root"
+        },
+        {
+            "name": "Igor",
+            "pwd": "Mondoni"
+        }
+    ]
+}
