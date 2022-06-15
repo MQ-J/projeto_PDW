@@ -13,8 +13,8 @@ class ReactMobileController extends Controller
     {
 
         $arquivo = __DIR__ . '/users.json';
-        $users = file_get_contents($arquivo);
+        $users = json_decode(file_get_contents($arquivo));
         
-        return response()->json(["users" => $users]);
+        return response()->json($users);
     }
 }
