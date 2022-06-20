@@ -50,11 +50,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post(
+Route::get(
     'sllurp/getconnection',
     [SllurpController::class, 'getconnection']
 );
-
+Route::post(
+    'sllurp/gettags',
+    [SllurpController::class, 'gettags']
+);
 
 Route::get(
     '/ReactMobile/getUsers',
