@@ -36,9 +36,15 @@ class SllurpController extends Controller
      */
     public function gettags()
     {
-        // salva as tags
+        // busca o json atual e pôe em uma array
         $arquivo = __DIR__ . '/tags.json';
-        file_put_contents($arquivo, json_encode($_POST));
+        $TAGS = json_decode(file_get_contents($arquivo));
+
+        // adiciona a tag encontrada na array
+        $TAGS[] = $_POST;
+
+        // altera o json com a array atualizada
+        file_put_contents($arquivo, json_encode($TAGS));
 
         // devolve uma resposta de ok na tela
         return response()->json([
