@@ -2,18 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sllurp;
-use Illuminate\Http\Request;
-
-use function PHPUnit\Framework\isNull;
 
 class SllurpController extends Controller
 {
-    /**
-     * Guarda o corpo da requisição
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function getconnection()
     {
         // salva os detalhes da conexão em um json
@@ -29,11 +21,7 @@ class SllurpController extends Controller
         ]);
     }
 
-    /**
-     * Manda as tags do slurp parra o projeto PHP
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function gettags()
     {
         // busca o json atual e pôe em uma array

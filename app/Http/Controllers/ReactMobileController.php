@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 class ReactMobileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function getUsers()
     {
 
@@ -16,5 +12,24 @@ class ReactMobileController extends Controller
         $users = json_decode(file_get_contents($arquivo));
         
         return response()->json($users);
+    }
+
+    public function login()
+    {
+        // busca o json atual e pôe em uma array associativa
+        $arquivo = __DIR__ . '/users.json';
+        $users = json_decode(file_get_contents($arquivo), true)['users'];
+
+        //busca a requisição e pôe em uma array associativa
+        $post = json_decode($_POST['user'], true);
+
+        //para cada usuário cadastrado, verifica se bate com a requisição
+        foreach ($users as $user) {
+            if($post == $user)
+                return response()->json(["status" => "ok"]);
+        }
+
+        // se não tiver nenhum igual, retorna erro
+        return response()->json(["status" => "Nok"]);
     }
 }

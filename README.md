@@ -1,20 +1,24 @@
 # Backend de API's com Laravel
 
 Esta aplicação reune APIS que funcionam como backend para outros projetos
+<hr>
 
-## ReactMobile
+## **ReactMobile**
 
 Aplicação em React, com suporte para ser desenvolvida em dispositivos mobile por meio do app "Spck NodeJS".
 
 - **[Usuários (GET)](https://polar-shelf-77439.herokuapp.com/api/ReactMobile/getUsers)**
+- **[Login (POST)](https://polar-shelf-77439.herokuapp.com/api/ReactMobile/login)**
+<hr>
 
-## Slurp
+## **Slurp**
 
 Teste de integração entre a biblioteca Slurp, em python, com uma aplicação PHP.
 
 - **[Ver sua própria requisição (POST)](https://polar-shelf-77439.herokuapp.com/api/sllurp/getconnection)**
+<hr>
 
-## Banco de dados
+## **Banco de dados**
 
 Operações CRUD com banco de dados usando API.
 
@@ -22,17 +26,19 @@ Operações CRUD com banco de dados usando API.
 - **[Insert into Pessoas (POST)](https://polar-shelf-77439.herokuapp.com/api/pessoas/create)**
 - **[Update Pessoas (POST)](https://polar-shelf-77439.herokuapp.com/api/pessoas/update/{id})**
 - **[Delete from Pessoas (POST)](https://polar-shelf-77439.herokuapp.com/api/pessoas/destroy/{id})**
+<hr>
 
-## Security Vulnerabilities
+## **Security Vulnerabilities**
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<hr>
 
-## License
+## **License**
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<hr>
 
-
-## Como começar:
+## **Como começar:**
 
 1. primeiro tenha o composer instalado em sua maquina;
 Recomendo o POSTMAN ou INSOMNIA para os testes;
