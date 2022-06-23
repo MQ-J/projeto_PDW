@@ -21,7 +21,10 @@ class ReactMobileController extends Controller
         $users = json_decode(file_get_contents($arquivo), true)['users'];
 
         //busca a requisição e pôe em uma array associativa
-        $post = json_decode($_POST['user'], true);
+        $post = json_decode('{
+            "name":"'.$_POST['name'].'",
+            "pwd":"'.$_POST['pwd'].'"
+        }', true);
 
         //para cada usuário cadastrado, verifica se bate com a requisição
         foreach ($users as $user) {
@@ -30,6 +33,6 @@ class ReactMobileController extends Controller
         }
 
         // se não tiver nenhum igual, retorna erro
-        return response()->json(["status" => "Nok"]);
+        return response()->json(["status" => "Nok", "post"=> $post]);
     }
 }
