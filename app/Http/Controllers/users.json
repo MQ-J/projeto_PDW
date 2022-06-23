@@ -1,16 +1,1 @@
-{
-    "users": [
-        {
-            "name": "Querino",
-            "pwd": "123"
-        },
-        {
-            "name": "root",
-            "pwd": "root"
-        },
-        {
-            "name": "Igor",
-            "pwd": "Mondoni"
-        }
-    ]
-}
+{"users":[{"name":"Querino","pwd":"123"},{"name":"root","pwd":"root"},{"name":"Igor","pwd":"Mondoni"},{"name":"Pedro","pwd":"Cabral1"}]}

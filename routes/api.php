@@ -69,3 +69,11 @@ use App\Http\Controllers\ReactMobileController;
         '/ReactMobile/login',
         [ReactMobileController::class, 'login']
     );
+    Route::POST(
+        '/ReactMobile/newUser',
+        [ReactMobileController::class, 'newUser']
+    );
+    Route::POST(
+        '/ReactMobile/deleteUser',
+        [ReactMobileController::class, 'deleteUser']
+    );
