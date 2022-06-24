@@ -33,6 +33,23 @@ class ReactMobileController extends Controller
         $arquivo = __DIR__ . '/users.json';
         $users = json_decode(file_get_contents($arquivo));
 
+        //verifica se nome de usuário é inválido
+        if (preg_match('/\W/', $_POST['name'])) {
+            return response()->json([
+                "status" => "Nok", 
+                "message"=>"use apenas letras, numeros ou underline no nome de usuário"
+            ]);
+        }
+
+        //Verifica se nome de usuário já existe
+        foreach ($users->users as $user) {
+            if($_POST['name'] == $user->name)
+                return response()->json([
+                    "status" => "Nok", 
+                    "message"=>"Este usuário já existe"
+                ]);
+        }
+
         //busca a requisição e pôe em uma variável PHP
         $post = json_decode('{
             "name":"'.$_POST['name'].'",
