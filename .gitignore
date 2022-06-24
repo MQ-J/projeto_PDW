@@ -13,3 +13,4 @@ yarn-error.log
 /.idea
 /.vscode
 app/Http/Controllers/connection.json
+app/Http/Controllers/users.json
