@@ -7,15 +7,15 @@ class ReactMobileController extends Controller
 
     public function login()
     {
-        // busca o json atual e pôe em uma array associativa
+        // busca o json atual e pôe em uma variável PHP
         $arquivo = __DIR__ . '/users.json';
-        $users = json_decode(file_get_contents($arquivo), true)['users'];
+        $users = json_decode(file_get_contents($arquivo))->users;
 
-        //busca a requisição e pôe em uma array associativa
+        //busca a requisição e pôe em uma variável PHP
         $post = json_decode('{
             "name":"'.$_POST['name'].'",
             "pwd":"'.$_POST['pwd'].'"
-        }', true);
+        }');
 
         //para cada usuário cadastrado, verifica se bate com a requisição
         foreach ($users as $user) {
@@ -29,23 +29,23 @@ class ReactMobileController extends Controller
 
     public function newUser()
     {
-        // busca o json atual e pôe em uma array associativa
+        // busca o json atual e pôe em uma variável PHP
         $arquivo = __DIR__ . '/users.json';
-        $users = json_decode(file_get_contents($arquivo), true);
+        $users = json_decode(file_get_contents($arquivo));
 
-        //busca a requisição e pôe em uma array associativa
+        //busca a requisição e pôe em uma variável PHP
         $post = json_decode('{
             "name":"'.$_POST['name'].'",
             "pwd":"'.$_POST['pwd'].'"
-        }', true);
+        }');
 
-        //adiciona novo usuário na lista
-        $users['users'][] = $post;
+        //adiciona novo usuário no array
+        $users->users[] = $post;
 
         // altera o json com a array atualizada
         file_put_contents($arquivo, json_encode($users));
 
-        // se não tiver nenhum igual, retorna erro
+        // retorna mensagem ok
         return response()->json([
             "status" => "ok", 
             "message"=> "usuário $_POST[name] criado com sucesso!"
