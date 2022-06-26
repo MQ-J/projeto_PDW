@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PessoasController;
 use App\Http\Controllers\SllurpController;
 use App\Http\Controllers\ReactMobileController;
+use App\Http\Controllers\ProjetoSPAController;
 
 /**
  * PESSOAS ROUTE'S
@@ -76,4 +77,12 @@ use App\Http\Controllers\ReactMobileController;
     Route::POST(
         '/ReactMobile/deleteUser',
         [ReactMobileController::class, 'deleteUser']
+    );
+
+/**
+ * PROJETO-SPA
+ */
+    Route::POST(
+        '/spa/sendFeedback',
+        [ProjetoSPAController::class, 'sendFeedback']
     );
