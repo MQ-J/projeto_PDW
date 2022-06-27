@@ -86,3 +86,7 @@ use App\Http\Controllers\ProjetoSPAController;
         '/spa/sendFeedback',
         [ProjetoSPAController::class, 'sendFeedback']
     );
+    Route::GET(
+        '/spa/getFeedbacks',
+        [ProjetoSPAController::class, 'getFeedbacks']
+    );

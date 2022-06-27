@@ -23,4 +23,17 @@ class ProjetoSPAController extends Controller
             'feedbacks' => $feedbacks,
         ]);
     }
+
+    public function getFeedbacks() {
+
+        // busca o json atual e pôe em uma array
+        $arquivo = __DIR__ . '/feedback.json';
+        $feedbacks = json_decode(file_get_contents($arquivo));
+
+        // devolve uma resposta de ok na tela
+        return response()->json([
+            'connection' => "OK",
+            'feedbacks' => $feedbacks,
+        ]);
+    }
 }
