@@ -19,8 +19,8 @@ class ReactMobileController extends Controller
 
         //para cada usuário cadastrado, verifica se bate com a requisição
         foreach ($users as $user) {
-            if($post == $user)
-                return response()->json(["status" => "ok"]);
+            if($post == $user->credentials)
+                return response()->json(["status" => "ok", "menu" => $user->menu]);
         }
 
         // se não tiver nenhum igual, retorna erro
@@ -37,13 +37,13 @@ class ReactMobileController extends Controller
         if (preg_match('/\W/', $_POST['name'])) {
             return response()->json([
                 "status" => "Nok", 
-                "message"=>"use apenas letras, numeros ou underline no nome de usuário"
+                "message"=>"use apenas letras sem acento, numeros ou underline no nome de usuário"
             ]);
         }
 
         //Verifica se nome de usuário já existe
         foreach ($users->users as $user) {
-            if($_POST['name'] == $user->name)
+            if($_POST['name'] == $user->credentials->name)
                 return response()->json([
                     "status" => "Nok", 
                     "message"=>"Este usuário já existe"
@@ -52,8 +52,12 @@ class ReactMobileController extends Controller
 
         //busca a requisição e pôe em uma variável PHP
         $post = json_decode('{
-            "name":"'.$_POST['name'].'",
-            "pwd":"'.$_POST['pwd'].'"
+            "id": "' . md5(uniqid("")) .'",
+            "credentials": {
+                "name": "'. $_POST['name'] .'",
+                "pwd":"'. $_POST['pwd'] .'"
+            },
+            "menu": ""
         }');
 
         //adiciona novo usuário no array
@@ -103,4 +107,8 @@ class ReactMobileController extends Controller
             "message"=> "usuário $_POST[name] não encontrado!"
         ]);
     }
+
+    // public function addMenu() {
+
+    // }
 }
