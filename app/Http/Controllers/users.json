@@ -1,1 +1,36 @@
-{"users":[{"id":"1","credentials":{"name":"Querino","pwd":"123"},"menu":"Tarefas"},{"id":"866f39cd3461f87bd4c851035f66545e","credentials":{"name":"MiguelAlves","pwd":"Batata123"},"menu":""},{"id":"a6b27848c122a6f91b08d3c999ae590d","credentials":{"name":"Jose","pwd":"1234"},"menu":""}]}
+{
+    "users": [
+        {
+            "id": "1",
+            "credentials": {
+                "name": "Querino",
+                "pwd": "123"
+            },
+            "menu": "Tarefas"
+        },
+        {
+            "id": "866f39cd3461f87bd4c851035f66545e",
+            "credentials": {
+                "name": "JLV",
+                "pwd": "garanhuns"
+            },
+            "menu": "Tarefas"
+        },
+        {
+            "id": "a6b27848c122a6f91b08d3c999ae590d",
+            "credentials": {
+                "name": "Lucas_20",
+                "pwd": "senior"
+            },
+            "menu": "Tarefas"
+        },
+        {
+            "id": "889c9c9453110344bed1434a641f2164",
+            "credentials": {
+                "name": "NayaraBPM",
+                "pwd": "consultora"
+            },
+            "menu": "Tarefas"
+        }
+    ]
+}
