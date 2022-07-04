@@ -9,6 +9,7 @@ use App\Http\Controllers\PessoasController;
 use App\Http\Controllers\SllurpController;
 use App\Http\Controllers\ReactMobileController;
 use App\Http\Controllers\ProjetoSPAController;
+use App\Http\Controllers\UsersController;
 
 /**
  * PESSOAS ROUTE'S
@@ -43,9 +44,10 @@ use App\Http\Controllers\ProjetoSPAController;
     [PessoasController::class, 'destroy']
     );
 
-    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-        return $request->user();
-    });
+    // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    //     return $request->user();
+    // });
+    Route::get('users', [UsersController::class, 'index']);
 
 /**
  * SLLURP ROUTE'S
