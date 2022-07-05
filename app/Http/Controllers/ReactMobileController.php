@@ -63,42 +63,16 @@ class ReactMobileController extends Controller
         
     }
 
-    public function deleteUser() /* EU PAREI AQUI */
+    public function deleteUser()
     {
-        // busca o json atual e pôe em uma array associativa
-        $arquivo = __DIR__ . '/users.json';
-        $users = json_decode(file_get_contents($arquivo), true);
+        
+        $deleted = DB::table('users')
+            ->where('name', $_POST['name'])
+        ->delete();
 
-        //busca a requisição e pôe em uma array associativa
-        $post = json_decode('{
-            "name":"'.$_POST['name'].'",
-            "pwd":"'.$_POST['pwd'].'"
-        }', true);
+        if ($deleted)
+            return response()->json(["status" => "ok"]);
 
-        //verifica se o usuário existe, paga apaga-lo
-        foreach ($users as $key => $user) {
-            if($post == $user){
-
-                unset($users[$key]);
-
-                // altera o json com a array atualizada
-                file_put_contents($arquivo, json_encode($users));
-
-                return response()->json([
-                    "status" => "ok",
-                    "message"=> "usuário $_POST[name] apagado com sucesso!"
-                ]);
-            }
-        }
-
-        // se não tiver nenhum igual, retorna erro
-        return response()->json([
-            "status" => "Nok",
-            "message"=> "usuário $_POST[name] não encontrado!"
-        ]);
+        return response()->json(["status" => "Nok"]);
     }
-
-    // public function addMenu() {
-
-    // }
 }

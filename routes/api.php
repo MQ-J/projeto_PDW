@@ -37,10 +37,6 @@ use App\Http\Controllers\UsersController;
 /**
  * REACTMOBILE ROUTE'S
  */
-    Route::get(
-        '/ReactMobile/getUsers',
-        [ReactMobileController::class, 'getUsers']
-    );
     Route::POST(
         '/ReactMobile/login',
         [ReactMobileController::class, 'login']
