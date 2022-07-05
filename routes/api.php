@@ -49,6 +49,10 @@ use App\Http\Controllers\UsersController;
         '/ReactMobile/deleteUser',
         [ReactMobileController::class, 'deleteUser']
     );
+    Route::POST(
+        '/ReactMobile/getBlocos',
+        [ReactMobileController::class, 'getBlocos']
+    );
 
 /**
  * PROJETO-SPA

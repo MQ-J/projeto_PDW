@@ -75,4 +75,20 @@ class ReactMobileController extends Controller
 
         return response()->json(["status" => "Nok"]);
     }
+
+    public function getBlocos()
+    {
+        $user = DB::table('users')
+            ->where('name', $_POST['name'])
+        ->first();
+        
+        $blocos = DB::table('blocos')
+            ->where('id', $user->id)
+        ->get();
+
+        if ($blocos)
+            return response()->json(["status" => "ok", "blocos" => $blocos]);
+
+        return response()->json(["status" => "Nok"]);
+    }
 }
