@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pessoas;
+use App\Models\Produtos;
 use Illuminate\Http\Request;
-
-use function PHPUnit\Framework\isNull;
 
 class PessoasController extends Controller
 {
@@ -17,11 +16,11 @@ class PessoasController extends Controller
     public function index()
     {
 
-        $pessoas = Pessoas::all();
+        $produtos = Produtos::all();
 
         return response()->json([
             'errors' => false,
-            'data' => $pessoas
+            'data' => $produtos
         ]);
     }
 

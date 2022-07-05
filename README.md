@@ -20,6 +20,20 @@ Teste de integração entre a biblioteca Slurp, em python, com uma aplicação P
 
 ## **Banco de dados**
 
+### como configurar
+- no arquivo **php.ini**, tire os comentários das linhas:
+  - extension=pdo_pgsql
+  - extension=pgsql
+- em **config/database.php**, defina qual banco de dados vc usará:
+  - 'default' => env('DB_CONNECTION', 'postgres'),
+- no arquivo **.env**, defina as variáveis de acesso ao banco:
+  - DB_CONNECTION=pgsql (padrão)
+  - DB_HOST= >>nome do servidor<<
+  - DB_PORT=5432 (padrão)
+  - DB_DATABASE= >>nome da base de dados<<
+  - DB_USERNAME= >>nome do usuário<<
+  - DB_PASSWORD= >>senha do usuário<<
+
 Operações CRUD com banco de dados usando API.
 
 - **[Select * Pessoas (GET)](https://polar-shelf-77439.herokuapp.com/api/pessoas/index)**
