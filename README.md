@@ -3,7 +3,7 @@
 Esta aplicação reune APIS que funcionam como backend para outros projetos
 <hr>
 
-## **Banco de dados**
+## **Banco de dados:** [Elephantsql](https://customer.elephantsql.com/)
 
 ### como configurar
 - no arquivo **php.ini**, tire os comentários das linhas:
