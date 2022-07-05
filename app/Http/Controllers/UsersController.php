@@ -9,13 +9,26 @@ use App\Models\User;
 class UsersController extends Controller
 {
     public function index() {
-        User::factory(10)->create();
-        User::factory()->create([
-                'name' => 'Test User',
-                'email' => 'test@example.com',
-            ]);
+
+        $users = User::all(['name', 'email']);
+
         return response()->json([
-            'connection' => "OK"
+            'connection' => "OK",
+            'data' => $users
+        ]);
+    }
+
+    public function create() {
+
+        User::factory()->create([
+            'name' => $_POST['name'],
+            'email' => $_POST['email'],
+            'password' => $_POST['pwd']
+        ]);
+
+        return response()->json([
+            "status" => "ok", 
+            "message"=> "usuário $_POST[name] criado com sucesso!"
         ]);
     }
 }

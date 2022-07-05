@@ -5,49 +5,22 @@
  */
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PessoasController;
 use App\Http\Controllers\SllurpController;
 use App\Http\Controllers\ReactMobileController;
 use App\Http\Controllers\ProjetoSPAController;
 use App\Http\Controllers\UsersController;
 
 /**
- * PESSOAS ROUTE'S
+ * USERS
  */
     Route::get(
-        '/pessoas/index',
-        [PessoasController::class, 'index']
+        '/users',
+        [UsersController::class, 'index']
     );
-
     Route::post(
-        '/pessoas/create',
-        [PessoasController::class, 'create']
+        '/users/create',
+        [UsersController::class, 'create']
     );
-
-    Route::get(
-        '/pessoas/show/{id}',
-        [PessoasController::class, 'show']
-    );
-
-    Route::get(
-        '/pessoas/shownome/{nome}',
-        [PessoasController::class, 'showNome']
-    );
-
-    Route::post(
-        '/pessoas/update/{id}',
-        [PessoasController::class, 'update']
-    );
-
-    Route::delete(
-        '/pessoas/destroy/{id}',
-    [PessoasController::class, 'destroy']
-    );
-
-    // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    //     return $request->user();
-    // });
-    Route::get('users', [UsersController::class, 'index']);
 
 /**
  * SLLURP ROUTE'S
