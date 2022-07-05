@@ -20,7 +20,7 @@ class UsersController extends Controller
 
     public function create() {
 
-        User::factory()->create([
+        User::create([
             'name' => $_POST['name'],
             'email' => $_POST['email'],
             'password' => $_POST['pwd']
