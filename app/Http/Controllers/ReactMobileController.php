@@ -83,7 +83,14 @@ class ReactMobileController extends Controller
 
     public function deleteUser()
     {
-        
+        $user = DB::table('users')
+            ->where('name', $_POST['name'])
+        ->first();
+
+        $blocos = DB::table('blocos')
+            ->where('id', $user->id)
+        ->delete();
+
         $deleted = DB::table('users')
             ->where('name', $_POST['name'])
         ->delete();
