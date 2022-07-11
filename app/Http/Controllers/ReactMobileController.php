@@ -39,12 +39,30 @@ class ReactMobileController extends Controller
             ]);
         }
 
-        // tenta criar o usuário
         try {
+
+            // tenta criar o usuário
             User::create([
                 'name' => $_POST['name'],
                 'email' => $_POST['email'],
                 'password' => $_POST['pwd']
+            ]);
+
+            //inicia menu para usuário
+            $user = DB::table('users')
+                ->where('name', $_POST['name'])
+            ->update(['menu' => 'tarefas']);
+
+            //cria bloco para usuário
+            $user = DB::table('users')
+                ->where('name', $_POST['name'])
+            ->first();
+            DB::table('blocos')->insert([
+                'id' => $user->id,
+                'title' => 'EXEMPLO',
+                'text' =>  'escreva coisas aqui, e salve. Vai ficar salvo pra quando vc precisar.',
+                'code' => 'imvr9qdle',
+                'menu' => 'tafefas'
             ]);
 
         } catch(\Illuminate\Database\QueryException $ex){
