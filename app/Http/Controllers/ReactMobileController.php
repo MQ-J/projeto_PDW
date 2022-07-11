@@ -91,4 +91,50 @@ class ReactMobileController extends Controller
 
         return response()->json(["status" => "Nok"]);
     }
+
+    public function updateBlocos()
+    {
+        //pesquisa o usuário
+        $user = DB::table('users')
+            ->where('name', $_POST['name'])
+        ->first();
+        
+        //usa o id do usuário para tentar localizar o bloco referente
+        $blocos = DB::table('blocos')
+            ->where('id', $user->id)
+            ->where('code', $_POST['code'])
+        ->get();
+
+        //se o bloco existir, edita-o
+        $blocos = DB::table('blocos')
+            ->where('id', $user->id)
+            ->where('code', $_POST['code'])
+        ->update(['title' => $_POST['title'], 'text' =>  $_POST['text']]);
+        if($blocos != 0) {
+            return response()->json(["status" => "ok", "blocos" => $blocos]);
+        }
+     
+        //se o bloco não existir, cria-o
+        else {
+
+            try {
+                DB::table('blocos')->insert([
+                    'id' => $user->id,
+                    'title' => $_POST['title'],
+                    'text' =>  $_POST['text'],
+                    'code' => $_POST['code'],
+                    'menu' => $_POST['menu']
+                ]);
+    
+            } catch(\Illuminate\Database\QueryException $ex){
+    
+                return response()->json([
+                    "status" => "Nok", 
+                    "message"=> $ex->getMessage()
+                ]);
+            }
+
+            return response()->json(["status" => "ok"]);
+        }
+    }
 }

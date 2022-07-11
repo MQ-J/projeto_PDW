@@ -53,6 +53,10 @@ use App\Http\Controllers\UsersController;
         '/ReactMobile/getBlocos',
         [ReactMobileController::class, 'getBlocos']
     );
+    Route::POST(
+        '/ReactMobile/updateBlocos',
+        [ReactMobileController::class, 'updateBlocos']
+    );
 
 /**
  * PROJETO-SPA
