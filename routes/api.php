@@ -57,6 +57,10 @@ use App\Http\Controllers\UsersController;
         '/ReactMobile/updateBlocos',
         [ReactMobileController::class, 'updateBlocos']
     );
+    Route::POST(
+        '/ReactMobile/deleteBloco',
+        [ReactMobileController::class, 'deleteBloco']
+    );
 
 /**
  * PROJETO-SPA

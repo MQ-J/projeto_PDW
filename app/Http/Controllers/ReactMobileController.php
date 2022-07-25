@@ -162,4 +162,18 @@ class ReactMobileController extends Controller
             return response()->json(["status" => "ok"]);
         }
     }
+
+    public function deleteBloco()
+    {
+        $user = DB::table('users')
+            ->where('name', $_POST['name'])
+        ->first();
+
+        $blocos = DB::table('blocos')
+            ->where('id', $user->id)
+            ->where('code', $_POST['code'])
+        ->delete();
+
+        return response()->json(["status" => "ok"]);
+    }
 }
