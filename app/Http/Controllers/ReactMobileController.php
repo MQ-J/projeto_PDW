@@ -16,7 +16,7 @@ class ReactMobileController extends Controller
         ->first();
 
         if ($user)
-            return response()->json(["status" => "ok", "menu" => $user->menu]);
+            return response()->json(["status" => "ok", "email" => $user->email, "menu" => $user->menu]);
 
         return response()->json(["status" => "Nok"]);
     }
@@ -175,17 +175,5 @@ class ReactMobileController extends Controller
         ->delete();
 
         return response()->json(["status" => "ok"]);
-    }
-
-    public function userData()
-    {
-        $user = DB::table('users')
-            ->where('name', $_POST['name'])
-        ->first();
-
-        if($user)
-            return response()->json(["status" => "ok", "email" => $user->email]);
-
-        return response()->json(["status" => "Nok"]);
     }
 }
