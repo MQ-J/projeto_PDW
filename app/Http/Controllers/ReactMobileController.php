@@ -176,4 +176,16 @@ class ReactMobileController extends Controller
 
         return response()->json(["status" => "ok"]);
     }
+
+    public function userData()
+    {
+        $user = DB::table('users')
+            ->where('name', $_POST['name'])
+        ->first();
+
+        if($user)
+            return response()->json(["status" => "ok", "email" => $user->email]);
+
+        return response()->json(["status" => "Nok"]);
+    }
 }
