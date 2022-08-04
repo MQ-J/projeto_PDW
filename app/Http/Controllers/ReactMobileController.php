@@ -15,8 +15,12 @@ class ReactMobileController extends Controller
             ->where('password', $_POST['pwd'])
         ->first();
 
+        $menus = DB::table('menus')
+            ->where('id', $user->id)
+        ->get();
+
         if ($user)
-            return response()->json(["status" => "ok", "email" => $user->email, "menu" => $user->menu]);
+            return response()->json(["status" => "ok", "email" => $user->email, "menus" => $menus]);
 
         return response()->json(["status" => "Nok"]);
     }
@@ -53,16 +57,20 @@ class ReactMobileController extends Controller
                 ->where('name', $_POST['name'])
             ->update(['menu' => 'tarefas']);
 
-            //cria bloco para usuário
+            //cria bloco e menu para usuário
             $user = DB::table('users')
                 ->where('name', $_POST['name'])
             ->first();
+            DB::table('menus')->insert([
+                'id' => $user->id,
+                'nome' => 'tarefas'
+            ]);
             DB::table('blocos')->insert([
                 'id' => $user->id,
                 'title' => 'EXEMPLO',
                 'text' =>  'escreva coisas aqui, e salve. Vai ficar salvo pra quando vc precisar.',
                 'code' => 'imvr9qdle',
-                'menu' => 'tafefas'
+                'menu' => 'tarefas'
             ]);
 
         } catch(\Illuminate\Database\QueryException $ex){
@@ -109,6 +117,7 @@ class ReactMobileController extends Controller
         
         $blocos = DB::table('blocos')
             ->where('id', $user->id)
+            ->where('menu', $_POST['menu'])
         ->get();
 
         if ($blocos)
