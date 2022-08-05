@@ -25,7 +25,7 @@ use App\Http\Controllers\UsersController;
 /**
  * SLLURP ROUTE'S
  */
-    Route::get(
+    Route::POST(
         'sllurp/getconnection',
         [SllurpController::class, 'getconnection']
     );
