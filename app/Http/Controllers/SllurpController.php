@@ -15,9 +15,7 @@ class SllurpController extends Controller
         // devolve uma resposta de ok na tela
         return response()->json([
             'connection' => "OK",
-            'message' => "Requisicao lida com sucesso, 
-                            e salva em arquivo JSON",
-            'file_path' => "app/Controllers/connection.json"
+            'voce mandou isso' => $_SERVER
         ]);
     }
 
