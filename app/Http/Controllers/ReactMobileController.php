@@ -15,12 +15,14 @@ class ReactMobileController extends Controller
             ->where('password', $_POST['pwd'])
         ->first();
 
-        $menus = DB::table('menus')
-            ->where('id', $user->id)
-        ->get();
+        if ($user) {
+            
+            $menus = DB::table('menus')
+                ->where('id', $user->id)
+            ->get();
 
-        if ($user)
             return response()->json(["status" => "ok", "email" => $user->email, "menus" => $menus]);
+        }
 
         return response()->json(["status" => "Nok"]);
     }
