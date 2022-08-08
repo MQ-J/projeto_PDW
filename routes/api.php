@@ -61,6 +61,10 @@ use App\Http\Controllers\UsersController;
         '/ReactMobile/deleteBloco',
         [ReactMobileController::class, 'deleteBloco']
     );
+    Route::POST(
+        '/ReactMobile/newMenu',
+        [ReactMobileController::class, 'newMenu']
+    );
 
 /**
  * PROJETO-SPA

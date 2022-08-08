@@ -16,7 +16,7 @@ class ReactMobileController extends Controller
         ->first();
 
         if ($user) {
-            
+
             $menus = DB::table('menus')
                 ->where('id', $user->id)
             ->get();
@@ -187,4 +187,39 @@ class ReactMobileController extends Controller
 
         return response()->json(["status" => "ok"]);
     }
+
+    public function newMenu()
+    {
+        //pesquisa o usuário
+        $user = DB::table('users')
+            ->where('name', $_POST['user'])
+        ->first();
+
+        try {
+            DB::table('menus')->insert([
+                'id' => $user->id,
+                'nome' => $_POST['nome'],
+                'code' => $_POST['code']
+            ]);
+            DB::table('blocos')->insert([
+                'id' => $user->id,
+                'title' => 'EXEMPLO',
+                'text' =>  'escreva coisas aqui, e salve. Vai ficar salvo pra quando vc precisar.',
+                'code' => 'imvr9qdle',
+                'menu' => $_POST['nome'],
+                'codemenu' => $_POST['code']
+            ]);
+
+        } catch(\Illuminate\Database\QueryException $ex){
+
+            return response()->json([
+                "status" => "Nok", 
+                "message"=> $ex->getMessage()
+            ]);
+        }
+
+        return response()->json(["status" => "ok"]);
+        
+    }
+
 }
