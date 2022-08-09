@@ -13,13 +13,13 @@ class ReactMobileController extends Controller
         $user = DB::table('users')
             ->where('name', $_POST['name'])
             ->where('password', $_POST['pwd'])
-        ->first();
+            ->first();
 
         if ($user) {
 
             $menus = DB::table('menus')
                 ->where('id', $user->id)
-            ->get();
+                ->get();
 
             return response()->json(["status" => "ok", "email" => $user->email, "menus" => $menus]);
         }
@@ -32,16 +32,16 @@ class ReactMobileController extends Controller
         //verifica se nome de usuário é inválido
         if (preg_match('/\W/', $_POST['name'])) {
             return response()->json([
-                "status" => "Nok", 
-                "message"=>"use apenas letras sem acento, numeros ou underline no nome de usuário"
+                "status" => "Nok",
+                "message" => "use apenas letras sem acento, numeros ou underline no nome de usuário"
             ]);
         }
 
         // verifica se usuário já existe
-        if(DB::table('users')->where('name', $_POST['name'])->first()) {
+        if (DB::table('users')->where('name', $_POST['name'])->first()) {
             return response()->json([
-                "status" => "Nok", 
-                "message"=>"Este usuário já existe"
+                "status" => "Nok",
+                "message" => "Este usuário já existe"
             ]);
         }
 
@@ -57,12 +57,12 @@ class ReactMobileController extends Controller
             //inicia menu para usuário
             $user = DB::table('users')
                 ->where('name', $_POST['name'])
-            ->update(['menu' => 'tarefas']);
+                ->update(['menu' => 'tarefas']);
 
             //cria bloco e menu para usuário
             $user = DB::table('users')
                 ->where('name', $_POST['name'])
-            ->first();
+                ->first();
             DB::table('menus')->insert([
                 'id' => $user->id,
                 'nome' => 'tarefas'
@@ -74,36 +74,34 @@ class ReactMobileController extends Controller
                 'code' => 'imvr9qdle',
                 'menu' => 'tarefas'
             ]);
-
-        } catch(\Illuminate\Database\QueryException $ex){
+        } catch (\Illuminate\Database\QueryException $ex) {
 
             return response()->json([
-                "status" => "Nok", 
-                "message"=> $ex->getMessage()
+                "status" => "Nok",
+                "message" => $ex->getMessage()
             ]);
         }
 
         // retorna mensagem ok
         return response()->json([
-            "status" => "ok", 
-            "message"=> "usuário $_POST[name] criado com sucesso!"
+            "status" => "ok",
+            "message" => "usuário $_POST[name] criado com sucesso!"
         ]);
-        
     }
 
     public function deleteUser()
     {
         $user = DB::table('users')
             ->where('name', $_POST['name'])
-        ->first();
+            ->first();
 
         $blocos = DB::table('blocos')
             ->where('id', $user->id)
-        ->delete();
+            ->delete();
 
         $deleted = DB::table('users')
             ->where('name', $_POST['name'])
-        ->delete();
+            ->delete();
 
         if ($deleted)
             return response()->json(["status" => "ok"]);
@@ -115,12 +113,12 @@ class ReactMobileController extends Controller
     {
         $user = DB::table('users')
             ->where('name', $_POST['name'])
-        ->first();
-        
+            ->first();
+
         $blocos = DB::table('blocos')
             ->where('id', $user->id)
             ->where('menu', $_POST['menu'])
-        ->get();
+            ->get();
 
         if ($blocos)
             return response()->json(["status" => "ok", "blocos" => $blocos]);
@@ -133,23 +131,23 @@ class ReactMobileController extends Controller
         //pesquisa o usuário
         $user = DB::table('users')
             ->where('name', $_POST['name'])
-        ->first();
-        
+            ->first();
+
         //usa o id do usuário para tentar localizar o bloco referente
         $blocos = DB::table('blocos')
             ->where('id', $user->id)
             ->where('code', $_POST['code'])
-        ->get();
+            ->get();
 
         //se o bloco existir, edita-o
         $blocos = DB::table('blocos')
             ->where('id', $user->id)
             ->where('code', $_POST['code'])
-        ->update(['title' => $_POST['title'], 'text' =>  $_POST['text']]);
-        if($blocos != 0) {
+            ->update(['title' => $_POST['title'], 'text' =>  $_POST['text']]);
+        if ($blocos != 0) {
             return response()->json(["status" => "ok", "blocos" => $blocos]);
         }
-     
+
         //se o bloco não existir, cria-o
         else {
 
@@ -161,12 +159,11 @@ class ReactMobileController extends Controller
                     'code' => $_POST['code'],
                     'menu' => $_POST['menu']
                 ]);
-    
-            } catch(\Illuminate\Database\QueryException $ex){
-    
+            } catch (\Illuminate\Database\QueryException $ex) {
+
                 return response()->json([
-                    "status" => "Nok", 
-                    "message"=> $ex->getMessage()
+                    "status" => "Nok",
+                    "message" => $ex->getMessage()
                 ]);
             }
 
@@ -178,12 +175,12 @@ class ReactMobileController extends Controller
     {
         $user = DB::table('users')
             ->where('name', $_POST['name'])
-        ->first();
+            ->first();
 
         $blocos = DB::table('blocos')
             ->where('id', $user->id)
             ->where('code', $_POST['code'])
-        ->delete();
+            ->delete();
 
         return response()->json(["status" => "ok"]);
     }
@@ -193,33 +190,47 @@ class ReactMobileController extends Controller
         //pesquisa o usuário
         $user = DB::table('users')
             ->where('name', $_POST['user'])
-        ->first();
+            ->first();
 
-        try {
-            DB::table('menus')->insert([
-                'id' => $user->id,
-                'nome' => $_POST['nome'],
-                'code' => $_POST['code']
-            ]);
-            DB::table('blocos')->insert([
-                'id' => $user->id,
-                'title' => 'EXEMPLO',
-                'text' =>  'escreva coisas aqui, e salve. Vai ficar salvo pra quando vc precisar.',
-                'code' => 'imvr9qdle',
-                'menu' => $_POST['nome'],
-                'codemenu' => $_POST['code']
-            ]);
+        //verifica se o usuário já tem esse tópico
+        $menu = DB::table('menus')
+            ->where('nome', $_POST['nome'])
+            ->where('id', $user->id)
+            ->first();
 
-        } catch(\Illuminate\Database\QueryException $ex){
+        // se não tiver, tenta criar
+        if (!$menu) {
+            try {
+                DB::table('menus')->insert([
+                    'id' => $user->id,
+                    'nome' => $_POST['nome'],
+                    'code' => $_POST['code']
+                ]);
 
+                // cria um bloco default no tópico (para não dar erro no front)
+                DB::table('blocos')->insert([
+                    'id' => $user->id,
+                    'title' => 'EXEMPLO',
+                    'text' =>  'escreva coisas aqui, e salve. Vai ficar salvo pra quando vc precisar.',
+                    'code' => 'imvr9qdle',
+                    'menu' => $_POST['nome'],
+                    'codemenu' => $_POST['code']
+                ]);
+            } catch (\Illuminate\Database\QueryException $ex) {
+
+                return response()->json([
+                    "status" => "Nok",
+                    "message" => $ex->getMessage()
+                ]);
+            }
+
+            return response()->json(["status" => "ok"]);
+            
+        } else {
             return response()->json([
-                "status" => "Nok", 
-                "message"=> $ex->getMessage()
+                "status" => "Nok",
+                "message" => "esse menu já existe"
             ]);
         }
-
-        return response()->json(["status" => "ok"]);
-        
     }
-
 }
