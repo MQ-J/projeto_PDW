@@ -271,4 +271,23 @@ class ReactMobileController extends Controller
             ]);
         }
     }
+
+    public function deleteMenu()
+    {
+        $user = DB::table('users')
+            ->where('name', $_POST['name'])
+            ->first();
+
+        $blocos = DB::table('blocos')
+            ->where('id', $user->id)
+            ->where('codemenu', $_POST['code'])
+            ->delete();
+
+        $menus = DB::table('menus')
+            ->where('id', $user->id)
+            ->where('code', $_POST['code'])
+            ->delete();
+
+        return response()->json(["status" => "ok"]);
+    }
 }
