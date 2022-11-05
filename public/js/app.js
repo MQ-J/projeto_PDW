@@ -9085,10 +9085,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Login() {
-  //versão do site
-  var _require = __webpack_require__(/*! ./../../../package.json */ "./package.json"),
-    appVersion = _require.version;
-
   //gif de carregando
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
@@ -9142,40 +9138,41 @@ function Login() {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(NewUserModal, {
       loading: loading,
       setLoading: setLoading
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "d-flex flex-column aligns-items-center justify-content-center w-50 mx-auto",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
-        className: "text-center pt-3",
-        children: "Entre na sua conta"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "d-flex flex-column aligns-items-center justify-content-center pt-3 gap-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "border border-secondary rounded p-2 bg-cadet",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-            className: loginError,
-            role: "alert",
-            children: "Login Incorreto"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Form, {
-            auth: auth,
-            loading: loading,
-            setLoading: setLoading
-          })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      className: "d-flex justify-content-center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "col-md-6 col-11",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
+          className: "text-center pt-3",
+          children: "Entre na sua conta"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "d-flex justify-content-between border border-secondary rounded p-2 bg-cadet",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-            className: "w-50",
-            children: "Primeira vez aqui?"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-            type: "button",
-            className: "btn text-white bg-orange",
-            "data-bs-toggle": "modal",
-            "data-bs-target": "#newUserModal",
-            children: "Criar conta"
+          className: "d-flex flex-column aligns-items-center justify-content-center pt-3 gap-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "border border-secondary rounded p-2 bg-cadet",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              className: loginError,
+              role: "alert",
+              children: "Login Incorreto"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Form, {
+              auth: auth,
+              loading: loading,
+              setLoading: setLoading
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "d-flex justify-content-between align-items-center border border-secondary rounded p-2 bg-cadet",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              className: "w-50",
+              children: "Primeira vez aqui?"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+              type: "button",
+              className: "btn text-white bg-orange",
+              "data-bs-toggle": "modal",
+              "data-bs-target": "#newUserModal",
+              children: "Criar conta"
+            })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
-          children: ["Vers\xE3o: ", appVersion]
         })]
-      })]
+      })
     })]
   });
 }
@@ -9265,48 +9262,52 @@ function Form(props) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
     onSubmit: props.auth ? props.auth : props.newUser,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "input-group d-flex justify-content-around align-items-center",
+      className: "mb-3",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
         htmlFor: "name",
+        className: "form-label",
         children: "Usu\xE1rio:"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
         type: "text",
         name: "name",
-        className: "form-control m-1 w-50",
+        className: "form-control",
         required: true
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "input-group d-flex justify-content-around align-items-center",
+      className: "mb-3",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
         htmlFor: "pwd",
+        className: "form-label",
         children: "Senha:"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
         type: "password",
         name: "pwd",
-        className: "form-control m-1 w-50",
+        className: "form-control",
         required: true
       })]
     }), props.auth ? "" : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "input-group d-flex justify-content-around align-items-center",
+        className: "mb-3",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
           htmlFor: "pwd2",
-          children: "Confirmar senha"
+          className: "form-label",
+          children: "Confirmar senha:"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
           type: "password",
           name: "pwd2",
-          className: "form-control m-1 w-50",
+          className: "form-control",
           required: true
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "input-group d-flex justify-content-around align-items-center",
+        className: "mb-3",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
-          htmlFor: "pwd2",
-          children: "Email"
+          htmlFor: "email",
+          className: "form-label",
+          children: "Email:"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
           type: "email",
           name: "email",
-          className: "form-control m-1 w-50",
+          className: "form-control",
           required: true
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
@@ -9316,20 +9317,17 @@ function Form(props) {
         readOnly: true,
         hidden: true
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "d-flex flex-column justify-content-center mx-auto w-50 mt-2",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-        type: "submit",
-        className: "btn text-white bg-orange",
-        children: !props.loading ? props.auth ? "login" : "Criar usuário" : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)((react_spinners_ClipLoader__WEBPACK_IMPORTED_MODULE_3___default()), {
-          color: "#ffffff",
-          loading: props.loading,
-          cssOverride: {
-            display: "block",
-            margin: "0 auto"
-          },
-          size: 20
-        })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+      type: "submit",
+      className: "btn text-white bg-orange w-100",
+      children: !props.loading ? props.auth ? "Login" : "Criar usuário" : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)((react_spinners_ClipLoader__WEBPACK_IMPORTED_MODULE_3___default()), {
+        color: "#ffffff",
+        loading: props.loading,
+        cssOverride: {
+          display: "block",
+          margin: "0 auto"
+        },
+        size: 20
       })
     })]
   });
