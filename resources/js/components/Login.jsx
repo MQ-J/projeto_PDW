@@ -27,40 +27,30 @@ export default function Login() {
     const [loginError, setLoginError] = useState("d-none");
 
     // FUNÇÃO PARA FAZER LOGIN
-    const auth = (event) => {
-
+    const auth = async (event) => {
+        event.preventDefault();
         setLoading(true)
 
         const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+        const formData = new FormData(event.target);
 
-        fetch(
-            `${url}/api/ReactMobile/login`,
-            {
-                body: new URLSearchParams(new FormData(event.target)),
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                method: "post",
-            }
-        ).then((res) => res.json()).then((res) => {
+        try {
+            const {data} = await axios.post(`${url}/api/auth`, formData);
 
-                if (res['status'] == 'ok') {
-                    localStorage.setItem("user", event.target.name.value)
-                    localStorage.setItem("email", res['email'])
-                    let menus = ""
-                    res['menus'].forEach(menu => {
-                        menus += menu["nome"] + ";" + menu['code'] + " "
-                    });
-                    localStorage.setItem("menu", menus)
-                    navigate(event.target.name.value)
-                } else {
-                    setLoading(false)
-                    setLoginError("alert alert-danger")
-                }
-            }
-        );
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", event.target.name.value)
+            localStorage.setItem("email", res['email'])
 
-        event.preventDefault();
+            let menus = ""
+            res['menus'].forEach(menu => {
+                menus += menu["nome"] + ";" + menu['code'] + " "
+            });
+            localStorage.setItem("menu", menus)
+            navigate(event.target.name.value)
+        } catch (e) {
+            setLoading(false)
+            setLoginError("alert alert-danger")
+        }
     };
 
     return (
