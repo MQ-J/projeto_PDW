@@ -10,5 +10,6 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware("auth:sanctum")->controller(UserController::class)->prefix("user")->group(function () {
-    Route::post("","create");
+    Route::post("", "create");
+    Route::put("/{id}", "edit");
 });

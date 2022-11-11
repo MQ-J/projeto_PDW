@@ -33,9 +33,28 @@ class UserController extends Controller
         }
     }
 
-    public function edit()
+    public function edit(UserRequest $request, int $id): JsonResponse
     {
+        try {
+            $user = User::findById($id);
 
+            if (empty($user))
+                return $this->create($request);
+
+            $user->fill([
+                "name" => $request->input("name"),
+                "email" => $request->input("email"),
+                "password" => $request->input("pwd")
+            ]);
+
+            $user->save();
+
+            return response()->json($user);
+        } catch (Exception $e) {
+            report($e);
+
+            return response()->json(null, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     public function destroy()

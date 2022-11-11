@@ -42,6 +42,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function findById(int $id): ?User
+    {
+        return parent::where("id", "=", $id)->first();
+    }
+
     public static function findByName(string $name): ?User
     {
         return parent::where("name", "LIKE", $name)->first();
