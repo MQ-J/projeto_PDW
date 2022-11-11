@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return parent::where("name", "LIKE", $name)->first();
     }
+
+    public static function findByEmail(string $email): ?User
+    {
+        return parent::where("email", "LIKE", $email)->first();
+    }
 }
