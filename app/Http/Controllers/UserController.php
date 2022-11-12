@@ -57,8 +57,21 @@ class UserController extends Controller
         }
     }
 
-    public function destroy()
+    public function destroy(Request $request, int $id): Response
     {
+        try {
+            $user = User::findById($id);
 
+            if (empty($user))
+                return response(null, Response::HTTP_NOT_FOUND);
+
+            $user->delete();
+
+            return response(null);
+        } catch (Exception $e) {
+            report($e);
+
+            return response(null, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

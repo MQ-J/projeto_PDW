@@ -9,7 +9,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::delete("/auth", "destroy");
 });
 
+Route::post("/user", [UserController::class, "create"]);
+
 Route::middleware("auth:sanctum")->controller(UserController::class)->prefix("user")->group(function () {
-    Route::post("", "create");
     Route::put("/{id}", "edit");
+    Route::delete("/{id}", "destroy");
 });
