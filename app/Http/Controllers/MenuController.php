@@ -15,6 +15,19 @@ use Laravel\Sanctum\PersonalAccessToken;
 
 class MenuController extends Controller
 {
+    public function index(Request $request): JsonResponse
+    {
+        try {
+            $user = auth("sanctum")->user();
+
+            return response()->json(Menu::getByUserId($user->id));
+        } catch (Exception $e) {
+            report($e);
+
+            return response()->json(null, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public function create(MenuRequest $request): JsonResponse
     {
         try {
