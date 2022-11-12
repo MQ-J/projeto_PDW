@@ -13,7 +13,6 @@ use Illuminate\Http\Response;
 
 class MenuController extends Controller
 {
-
     public function create(MenuRequest $request): JsonResponse
     {
         try {
@@ -28,6 +27,39 @@ class MenuController extends Controller
                 "user" => $user,
                 "name" => $request->input("name"),
                 "permalink" => $permalink
+            ]);
+
+            $menu->save();
+
+            return response()->json($menu, Response::HTTP_CREATED);
+        } catch (Exception $e) {
+            report($e);
+
+            return response()->json(null, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function edit(MenuRequest $request, string $permalink): JsonResponse
+    {
+        try {
+            $user = $request->input("user");
+            $name = $request->input("name");
+
+            $newPermalink = Permalink::generatePermalink($name);
+            $menu = Menu::findByPermalinkAndUser($newPermalink, (int)$user);
+
+            if (!empty($menu))
+                return response()->json(null, Response::HTTP_CONFLICT);
+
+            $menu = Menu::findByPermalinkAndUser($permalink, (int)$user);
+
+            if (empty($menu))
+                return $this->create($request);
+
+            $menu->fill([
+                "user" => $user,
+                "name" => $name,
+                "permalink" => $newPermalink
             ]);
 
             $menu->save();

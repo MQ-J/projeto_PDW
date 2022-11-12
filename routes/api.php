@@ -19,6 +19,6 @@ Route::middleware("auth:sanctum")->controller(UserController::class)->prefix("us
 
 Route::middleware("auth:sanctum")->controller(MenuController::class)->prefix("menu")->group(function () {
     Route::post("", "create");
-    Route::put("/{id}", "edit");
-    Route::delete("/{id}", "destroy");
+    Route::put("/{permalink}", "edit");
+    Route::delete("/{permalink}", "destroy");
 });

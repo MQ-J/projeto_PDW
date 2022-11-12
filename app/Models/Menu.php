@@ -12,7 +12,7 @@ class Menu extends Model
 
     public static function findByPermalinkAndUser(string $permalink, int $user): ?Menu
     {
-        return parent::where("permalink", "LIKE", "%{$permalink}%")
+        return parent::where("permalink", "LIKE", $permalink)
             ->where("user", "=", $user)
             ->first();
     }
