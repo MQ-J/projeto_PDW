@@ -34,13 +34,10 @@ class UserController extends Controller
         }
     }
 
-    public function edit(UserRequest $request, int $id): JsonResponse
+    public function edit(UserRequest $request): JsonResponse
     {
         try {
-            $user = User::findById($id);
-
-            if (empty($user))
-                return response()->json(null, Response::HTTP_NOT_FOUND);
+            $user = auth("sanctum")->user();
 
             $user->fill([
                 "name" => $request->input("name"),
@@ -58,10 +55,10 @@ class UserController extends Controller
         }
     }
 
-    public function destroy(Request $request, int $id): Response
+    public function destroy(): Response
     {
         try {
-            $user = User::findById($id);
+            $user = auth("sanctum")->user();
 
             if (empty($user))
                 return response(null, Response::HTTP_NOT_FOUND);
