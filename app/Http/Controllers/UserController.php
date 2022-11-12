@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -20,7 +21,7 @@ class UserController extends Controller
             $user = new User([
                 "name" => $request->input("name"),
                 "email" => $request->input("email"),
-                "password" => $request->input("pwd")
+                "password" => Hash::make($request->input("pwd"))
             ]);
 
             $user->save();
@@ -44,7 +45,7 @@ class UserController extends Controller
             $user->fill([
                 "name" => $request->input("name"),
                 "email" => $request->input("email"),
-                "password" => $request->input("pwd")
+                "password" => Hash::make($request->input("pwd"))
             ]);
 
             $user->save();
