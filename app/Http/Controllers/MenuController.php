@@ -5,13 +5,10 @@ namespace App\Http\Controllers;
 use App\Helpers\Permalink;
 use App\Http\Requests\MenuRequest;
 use App\Models\Menu;
-use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Laravel\Sanctum\PersonalAccessToken;
-
 
 class MenuController extends Controller
 {
@@ -31,16 +28,18 @@ class MenuController extends Controller
     public function create(MenuRequest $request): JsonResponse
     {
         try {
-            $user = $request->input("user");
-            $permalink = Permalink::generatePermalink($request->input("name"));
-            $menu = Menu::findByPermalinkAndUser($permalink, (int)$user);
+            $user = auth("sanctum")->user();
+            $name = $request->input("name");
+
+            $permalink = Permalink::generatePermalink($name);
+            $menu = Menu::findByPermalinkAndUser($permalink, $user->id);
 
             if (!empty($menu))
                 return response()->json(null, Response::HTTP_CONFLICT);
 
             $menu = new Menu([
-                "user" => $user,
-                "name" => $request->input("name"),
+                "user" => $user->id,
+                "name" => $name,
                 "permalink" => $permalink
             ]);
 
@@ -57,22 +56,22 @@ class MenuController extends Controller
     public function edit(MenuRequest $request, string $permalink): JsonResponse
     {
         try {
-            $user = $request->input("user");
+            $user = auth("sanctum")->user();
             $name = $request->input("name");
 
             $newPermalink = Permalink::generatePermalink($name);
-            $menu = Menu::findByPermalinkAndUser($newPermalink, (int)$user);
+            $menu = Menu::findByPermalinkAndUser($newPermalink, $user->id);
 
             if (!empty($menu))
                 return response()->json(null, Response::HTTP_CONFLICT);
 
-            $menu = Menu::findByPermalinkAndUser($permalink, (int)$user);
+            $menu = Menu::findByPermalinkAndUser($permalink, $user->id);
 
             if (empty($menu))
                 return $this->create($request);
 
             $menu->fill([
-                "user" => $user,
+                "user" => $user->id,
                 "name" => $name,
                 "permalink" => $newPermalink
             ]);

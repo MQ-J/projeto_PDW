@@ -12,7 +12,6 @@ class MenuRequest extends Request
     public function rules()
     {
         return [
-            "user" => "required|numeric",
             "name" => "required"
         ];
     }
