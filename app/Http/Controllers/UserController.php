@@ -39,7 +39,7 @@ class UserController extends Controller
             $user = User::findById($id);
 
             if (empty($user))
-                return $this->create($request);
+                return response()->json(null, Response::HTTP_NOT_FOUND);
 
             $user->fill([
                 "name" => $request->input("name"),
