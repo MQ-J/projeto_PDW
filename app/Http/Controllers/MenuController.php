@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Helpers\Permalink;
 use App\Http\Requests\MenuRequest;
 use App\Models\Menu;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Laravel\Sanctum\PersonalAccessToken;
 
 
 class MenuController extends Controller
@@ -64,11 +66,34 @@ class MenuController extends Controller
 
             $menu->save();
 
-            return response()->json($menu, Response::HTTP_CREATED);
+            return response()->json($menu);
         } catch (Exception $e) {
             report($e);
 
             return response()->json(null, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function destroy(Request $request, string $permalink): Response
+    {
+        try {
+            $user = auth("sanctum")->user();
+
+            if (empty($user))
+                return response(null, Response::HTTP_FORBIDDEN);
+
+            $menu = Menu::findByPermalinkAndUser($permalink, $user->id);
+
+            if (empty($menu))
+                return response(null, Response::HTTP_NOT_FOUND);
+
+            $menu->delete();
+
+            return response(null);
+        } catch (Exception $e) {
+            report($e);
+
+            return response(null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
