@@ -34,4 +34,27 @@ class BlockController extends Controller
             return response()->json(null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function edit(BlockRequest $request, string $permalink, int $id): JsonResponse
+    {
+        $user = auth("sanctum")->user();
+
+        try {
+            $menu = Menu::findByPermalinkAndUser($permalink, $user->id);
+            $block = Block::findById($id);
+
+            $block->fill([
+                "menu" => $menu->id,
+                "text" => $request->input("text")
+            ]);
+
+            $block->save();
+
+            return response()->json($block);
+        } catch (Exception $e) {
+            report($e);
+
+            return response()->json(null, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

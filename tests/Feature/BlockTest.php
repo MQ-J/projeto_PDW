@@ -75,6 +75,47 @@ class BlockTest extends TestCase
         $personalToken->forceDelete();
     }
 
+    public function test_edit_block(): void
+    {
+        $response = $this->post("/api/auth", [
+            "name" => "testeunit",
+            "pwd" => "12345"
+        ]);
+
+        $response->assertOk();
+        $token = $response->json("token");
+
+        $this->headers["Authorization"] = "Bearer " . $token;
+
+        $response = $this->post("/api/menu/teste-menu/block", ["text" => "Olá mundo"], $this->headers);
+
+        $response->assertCreated();
+        $response->assertJsonStructure([
+            "id",
+            "user",
+            "menu",
+            "text",
+            "updated_at",
+            "created_at"
+        ]);
+
+        $response = $this->put("/api/menu/teste-menu/block/" . $response->json("id"), ["text" => "Olá mundo 2"], $this->headers);
+        $response->assertOk();
+        $response->assertJsonStructure([
+            "id",
+            "user",
+            "menu",
+            "text",
+            "updated_at",
+            "created_at"
+        ]);
+
+        $token = preg_replace("/\d+\|/mi", "", $token);
+
+        $personalToken = PersonalAccessToken::findToken($token);
+        $personalToken->forceDelete();
+    }
+
     protected function tearDown(): void
     {
         $this->user->forceDelete();
