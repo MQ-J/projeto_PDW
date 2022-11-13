@@ -57,4 +57,24 @@ class BlockController extends Controller
             return response()->json(null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function destroy(Request $request, string $permalink, int $id): Response
+    {
+        $user = auth("sanctum")->user();
+
+        try {
+            $block = Block::findByUserAndId($user->id, $id);
+
+            if (empty($block))
+                return response(null, Response::HTTP_NOT_FOUND);
+
+            $block->delete();
+
+            return response(null);
+        } catch (Exception $e) {
+            report($e);
+
+            return response(null, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }
