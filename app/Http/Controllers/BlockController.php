@@ -12,6 +12,22 @@ use Illuminate\Http\Response;
 
 class BlockController extends Controller
 {
+    public function index(Request $request, string $permalink): JsonResponse
+    {
+        $user = auth("sanctum")->user();
+
+        try {
+            $menu = Menu::findByPermalinkAndUser($permalink, $user->id);
+            $blocks = Block::getByUserAndMenu($user->id, $menu->id);
+
+            return response()->json($blocks);
+        } catch (Exception $e) {
+            report($e);
+
+            return response()->json(null, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public function create(BlockRequest $request, string $permalink): JsonResponse
     {
         $user = auth("sanctum")->user();
