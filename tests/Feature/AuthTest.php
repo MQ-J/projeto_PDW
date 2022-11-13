@@ -6,11 +6,16 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\PersonalAccessToken;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
     private User $user;
+    private array $headers = [
+        "Accept" => "json/application",
+        "Authorization" => ""
+    ];
 
     protected function setUp(): void
     {
@@ -39,13 +44,37 @@ class AuthTest extends TestCase
 
         $response->assertOk();
         $response->assertJsonStructure(["token"]);
+
+        $token = $response->json("token");
+        $token = preg_replace("/\d+\|/mi", "", $token);
+
+        $personalToken = PersonalAccessToken::findToken($token);
+        $this->assertNotEmpty($personalToken);
+
+        $personalToken->forceDelete();
     }
 
     public function test_revoke_token(): void
     {
-        $response = $this->delete("/api/auth");
+        $response = $this->post("/api/auth", [
+            "name" => "testeunit",
+            "pwd" => "12345"
+        ]);
 
         $response->assertOk();
+        $response->assertJsonStructure(["token"]);
+
+        $token = $response->json("token");
+
+        $this->headers["Authorization"] = "Bearer " . $token;
+
+        $response = $this->delete("/api/auth", [], $this->headers);
+        $response->assertOk();
+
+        $token = preg_replace("/\d+\|/mi", "", $token);
+
+        $personalToken = PersonalAccessToken::findToken($token);
+        $this->assertEmpty($personalToken);
     }
 
     protected function tearDown(): void

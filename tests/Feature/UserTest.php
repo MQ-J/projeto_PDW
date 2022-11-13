@@ -36,6 +36,9 @@ class UserTest extends TestCase
             "updated_at",
             "created_at"
         ]);
+
+        $user = User::findByEmail("testeunit@teste.com");
+        $user->forceDelete();
     }
 
     public function test_edit_user(): void
@@ -80,6 +83,8 @@ class UserTest extends TestCase
 
         $this->assertEquals("testeunit54", $response->json("name"));
         $this->assertEquals("testeunit8@teste.com", $response->json("email"));
+
+        $user->forceDelete();
     }
 
     public function test_delete_user(): void
@@ -104,5 +109,7 @@ class UserTest extends TestCase
 
         $response = $this->delete("/api/user", [], $this->headers);
         $response->assertOk();
+
+        $user->forceDelete();
     }
 }

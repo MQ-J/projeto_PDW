@@ -7,11 +7,12 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\PersonalAccessToken;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AuthController extends Controller
 {
-    public function create(LoginRequest $request):JsonResponse
+    public function create(LoginRequest $request): JsonResponse
     {
         $user = User::findByName($request->input("name"));
 
@@ -21,8 +22,12 @@ class AuthController extends Controller
         return response()->json(["token" => $user->createToken("Token")->plainTextToken]);
     }
 
-    public function destroy()
+    public function destroy(Request $request)
     {
-        //TODO: Implemetar revogação de token
+        $token = preg_replace("/Bearer \d+\|/mi", "", $request->header("Authorization"));
+        $data = PersonalAccessToken::findToken($token);
+
+        if (!empty($data))
+            $data->forceDelete();
     }
 }

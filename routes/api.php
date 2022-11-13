@@ -5,9 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MenuController;
 
-Route::controller(AuthController::class)->group(function () {
-    Route::post("/auth", "create");
-});
+Route::post("/auth", [AuthController::class, "create"]);
+Route::middleware("auth:sanctum")->delete("/auth", [AuthController::class, "destroy"]);
 
 Route::post("/user", [UserController::class, "create"]);
 
