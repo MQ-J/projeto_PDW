@@ -59,6 +59,9 @@ class BlockController extends Controller
             $menu = Menu::findByPermalinkAndUser($permalink, $user->id);
             $block = Block::findById($id);
 
+            if (empty($block))
+                return $this->create($request);
+
             $block->fill([
                 "menu" => $menu->id,
                 "text" => $request->input("text")
