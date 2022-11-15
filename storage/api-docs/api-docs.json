@@ -1,0 +1,878 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Projeto de PDWA5",
+        "description": "API do projeto de PDWA5",
+        "contact": {
+            "email": "admin@admin.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api",
+            "description": "Endpoint da API."
+        }
+    ],
+    "paths": {
+        "/auth": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Autenticar e gerar token",
+                "description": "Retorna token de autenticação",
+                "operationId": "e2e910d793673bfad04a80eda7ad070d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "User Name"
+                                    },
+                                    "pwd": {
+                                        "type": "string",
+                                        "example": "12345#qwert"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token gerado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "1|eoiuywourioeuwoUIymlajsklaOPImewruwopruokhdshjfdf"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ao falhar na autorização."
+                    },
+                    "422": {
+                        "description": "Ao falhar em uma validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Revogar token",
+                "description": "Revoga token de autenticação",
+                "operationId": "df2eee26444444a49a587c8073a4bf74",
+                "responses": {
+                    "200": {
+                        "description": "Token gerado com sucesso."
+                    },
+                    "401": {
+                        "description": "Ao falhar na autorização."
+                    }
+                }
+            }
+        },
+        "/menu/:permalink/block": {
+            "get": {
+                "tags": [
+                    "Block"
+                ],
+                "summary": "Listar blocos.",
+                "description": "Lista os blocos dentro dos menus.",
+                "operationId": "b71f5c1063fd7c9467ddc254da6fe6b2",
+                "responses": {
+                    "200": {
+                        "description": "Blocos lisitados com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "user": {
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "menu": {
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "text": {
+                                                "type": "string",
+                                                "example": "Novo Bloco"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "example": "2022-11-14T00:06:03.000000Z"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "example": "2022-11-14T00:06:03.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ao falhar na autorização."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Block"
+                ],
+                "summary": "Criar bloco.",
+                "description": "Cria um novo bloco.",
+                "operationId": "5c5b2997ae6d85d19c4ace9047fe0421",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "text": {
+                                        "type": "string",
+                                        "example": "Novo Bloco"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Menu criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "user": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "menu": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "text": {
+                                            "type": "string",
+                                            "example": "Novo Bloco"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2022-11-14T00:06:03.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2022-11-14T00:06:03.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ao falhar na autorização."
+                    },
+                    "422": {
+                        "description": "Ao falhar em uma validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "text": {
+                                                "type": "array",
+                                                "items": {}
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/menu/:permalink/block/:id": {
+            "put": {
+                "tags": [
+                    "Block"
+                ],
+                "summary": "Editar usuário.",
+                "description": "Edita um usuário.",
+                "operationId": "c3b0d055445303ff3dd60db1d0d22ad9",
+                "parameters": [
+                    {
+                        "name": "permalink",
+                        "in": "path",
+                        "description": "Permalink do menu",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do bloco",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "text": {
+                                        "type": "string",
+                                        "example": "Novo Bloco"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Menu criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "user": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "menu": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "text": {
+                                            "type": "string",
+                                            "example": "Novo Bloco"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2022-11-14T00:06:03.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2022-11-14T00:06:03.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ao falhar na autorização."
+                    },
+                    "409": {
+                        "description": "Caso já exista um menu com o mesmo nome."
+                    },
+                    "422": {
+                        "description": "Ao falhar em uma validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "text": {
+                                                "type": "array",
+                                                "items": {}
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Block"
+                ],
+                "summary": "Remover bloco.",
+                "description": "Remove o bloco.",
+                "operationId": "1bbd38106aaa5527f8abc1ae5142add3",
+                "parameters": [
+                    {
+                        "name": "permalink",
+                        "in": "path",
+                        "description": "Permalink do menu",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id do bloco",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Bloco removido com sucesso."
+                    },
+                    "401": {
+                        "description": "Ao falhar na autorização."
+                    },
+                    "404": {
+                        "description": "Caso o menu não exista."
+                    }
+                }
+            }
+        },
+        "/menu": {
+            "get": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Listar menus.",
+                "description": "Lista os menus.",
+                "operationId": "414b868686e4a54d1aa46b4fc14acb61",
+                "responses": {
+                    "200": {
+                        "description": "Menus lisitados com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "user": {
+                                                "type": "integer",
+                                                "example": "1"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Novo Menu"
+                                            },
+                                            "permalink": {
+                                                "type": "string",
+                                                "example": "novo-menu"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "example": "2022-11-14T00:06:03.000000Z"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "example": "2022-11-14T00:06:03.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ao falhar na autorização."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Criar menu.",
+                "description": "Cria um novo menu.",
+                "operationId": "9af9442e517cf9cede4ad30b3810d118",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Novo Menu"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Menu criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Novo Menu"
+                                        },
+                                        "permalink": {
+                                            "type": "string",
+                                            "example": "novo-menu"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2022-11-14T00:06:03.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2022-11-14T00:06:03.000000Z"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ao falhar na autorização."
+                    },
+                    "409": {
+                        "description": "Caso já exista um menu com o mesmo nome."
+                    },
+                    "422": {
+                        "description": "Ao falhar em uma validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "array",
+                                                "items": {}
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/menu/:permalink": {
+            "put": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Editar usuário.",
+                "description": "Edita um usuário.",
+                "operationId": "c72be7b1ffa57a8d12a9e04519aa35e0",
+                "parameters": [
+                    {
+                        "name": "permalink",
+                        "in": "path",
+                        "description": "Permalink do menu",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Novo Menu"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Menu editado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Novo Menu"
+                                        },
+                                        "permalink": {
+                                            "type": "string",
+                                            "example": "novo-menu"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2022-11-14T00:06:03.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2022-11-14T00:06:03.000000Z"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ao falhar na autorização."
+                    },
+                    "409": {
+                        "description": "Caso já exista um menu com o mesmo nome."
+                    },
+                    "422": {
+                        "description": "Ao falhar em uma validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "array",
+                                                "items": {}
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Menu"
+                ],
+                "summary": "Remover menu.",
+                "description": "Remove o menu.",
+                "operationId": "8d85ffde7bb15b027d87736dc1860864",
+                "parameters": [
+                    {
+                        "name": "permalink",
+                        "in": "path",
+                        "description": "Permalink do menu",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Menu removido com sucesso."
+                    },
+                    "401": {
+                        "description": "Ao falhar na autorização."
+                    },
+                    "404": {
+                        "description": "Caso o menu não exista."
+                    }
+                }
+            }
+        },
+        "/user": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Editar usuário.",
+                "description": "Edita um usuário.",
+                "operationId": "49d38ea7fe04e833b5be3c31258fa551",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "User Name"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "email@example.com"
+                                    },
+                                    "pwd": {
+                                        "type": "string",
+                                        "example": "12345#qwert"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário editado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "User Name"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "email@example.com"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2022-11-14T00:06:03.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2022-11-14T00:06:03.000000Z"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Ao falhar na autorização."
+                    },
+                    "409": {
+                        "description": "Caso já exista um usuário com o mesmo nome e/ou e-mail."
+                    },
+                    "422": {
+                        "description": "Ao falhar em uma validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "array",
+                                                "items": {}
+                                            },
+                                            "email": {
+                                                "type": "array",
+                                                "items": {}
+                                            },
+                                            "pwd": {
+                                                "type": "array",
+                                                "items": {}
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Criar usuário.",
+                "description": "Cria um novo usuário.",
+                "operationId": "fdaf6e20ea63c9e43bacb0c1f25012d5",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "User Name"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "email@example.com"
+                                    },
+                                    "pwd": {
+                                        "type": "string",
+                                        "example": "12345#qwert"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "User Name"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "email@example.com"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2022-11-14T00:06:03.000000Z"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2022-11-14T00:06:03.000000Z"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Caso já exista um usuário com o mesmo nome e/ou e-mail."
+                    },
+                    "422": {
+                        "description": "Ao falhar em uma validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "array",
+                                                "items": {}
+                                            },
+                                            "email": {
+                                                "type": "array",
+                                                "items": {}
+                                            },
+                                            "pwd": {
+                                                "type": "array",
+                                                "items": {}
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Remover usuário.",
+                "description": "Remove o usuário.",
+                "operationId": "a14bc5aa7e52b6b25b79f173f6639099",
+                "responses": {
+                    "200": {
+                        "description": "Usuário removido com sucesso."
+                    },
+                    "401": {
+                        "description": "Ao falhar na autorização."
+                    },
+                    "404": {
+                        "description": "Caso o usuário não exista."
+                    }
+                }
+            }
+        }
+    }
+}

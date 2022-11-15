@@ -12,6 +12,36 @@ use Illuminate\Http\Response;
 
 class BlockController extends Controller
 {
+    /**
+     * @OA\Get (
+     *      path="/menu/:permalink/block",
+     *      tags={"Block"},
+     *      summary="Listar blocos.",
+     *      description="Lista os blocos dentro dos menus.",
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Blocos lisitados com sucesso.",
+     *
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(
+     *                  @OA\Property(property="id", type="int", example="1"),
+     *                  @OA\Property(property="user", type="int", example="1"),
+     *                  @OA\Property(property="menu", type="int", example="1"),
+     *                  @OA\Property(property="text", type="string", example="Novo Bloco"),
+     *                  @OA\Property(property="updated_at", type="string", example="2022-11-14T00:06:03.000000Z"),
+     *                  @OA\Property(property="created_at", type="string", example="2022-11-14T00:06:03.000000Z")
+     *              )
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=401,
+     *          description="Ao falhar na autorização.",
+     *      )
+     * )
+     */
     public function index(Request $request, string $permalink): JsonResponse
     {
         $user = auth("sanctum")->user();
@@ -28,6 +58,50 @@ class BlockController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *      path="/menu/:permalink/block",
+     *      tags={"Block"},
+     *      summary="Criar bloco.",
+     *      description="Cria um novo bloco.",
+     *
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="text", type="string", example="Novo Bloco"),
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Menu criado com sucesso.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="id", type="int", example="1"),
+     *              @OA\Property(property="user", type="int", example="1"),
+     *              @OA\Property(property="menu", type="int", example="1"),
+     *              @OA\Property(property="text", type="string", example="Novo Bloco"),
+     *              @OA\Property(property="updated_at", type="string", example="2022-11-14T00:06:03.000000Z"),
+     *              @OA\Property(property="created_at", type="string", example="2022-11-14T00:06:03.000000Z")
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=401,
+     *          description="Ao falhar na autorização.",
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=422,
+     *          description="Ao falhar em uma validação.",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(
+     *                  @OA\Property(property="text", type="array", items=@OA\Items()),
+     *              )
+     *          )
+     *      )
+     * )
+     */
     public function create(BlockRequest $request, string $permalink): JsonResponse
     {
         $user = auth("sanctum")->user();
@@ -51,6 +125,75 @@ class BlockController extends Controller
         }
     }
 
+    /**
+     * @OA\Put(
+     *      path="/menu/:permalink/block/:id",
+     *      tags={"Block"},
+     *      summary="Editar usuário.",
+     *      description="Edita um usuário.",
+     *
+     *      @OA\Parameter(
+     *          name="permalink",
+     *          description="Permalink do menu",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Id do bloco",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="int"
+     *          )
+     *      ),
+     *
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="text", type="string", example="Novo Bloco"),
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=200,
+     *          description="Menu criado com sucesso.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="id", type="int", example="1"),
+     *              @OA\Property(property="user", type="int", example="1"),
+     *              @OA\Property(property="menu", type="int", example="1"),
+     *              @OA\Property(property="text", type="string", example="Novo Bloco"),
+     *              @OA\Property(property="updated_at", type="string", example="2022-11-14T00:06:03.000000Z"),
+     *              @OA\Property(property="created_at", type="string", example="2022-11-14T00:06:03.000000Z")
+     *          )
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=401,
+     *          description="Ao falhar na autorização.",
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=409,
+     *          description="Caso já exista um menu com o mesmo nome."
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=422,
+     *          description="Ao falhar em uma validação.",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              @OA\Items(
+     *                  @OA\Property(property="text", type="array", items=@OA\Items()),
+     *              )
+     *          )
+     *      )
+     * )
+     */
     public function edit(BlockRequest $request, string $permalink, int $id): JsonResponse
     {
         $user = auth("sanctum")->user();
@@ -77,6 +220,48 @@ class BlockController extends Controller
         }
     }
 
+    /**
+     * @OA\Delete (
+     *      path="/menu/:permalink/block/:id",
+     *      tags={"Block"},
+     *      summary="Remover bloco.",
+     *      description="Remove o bloco.",
+     *
+     *      @OA\Parameter(
+     *          name="permalink",
+     *          description="Permalink do menu",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *      ),
+     *
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Id do bloco",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="int"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Bloco removido com sucesso."
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=401,
+     *          description="Ao falhar na autorização.",
+     *      ),
+     *
+     *      @OA\Response(
+     *          response=404,
+     *          description="Caso o menu não exista.",
+     *      )
+     * )
+     */
     public function destroy(Request $request, string $permalink, int $id): Response
     {
         $user = auth("sanctum")->user();
