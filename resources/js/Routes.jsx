@@ -1,5 +1,5 @@
 // para o sistema de rotas
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 
 // módulos
 import Home from "./components/Home";
@@ -22,7 +22,7 @@ export function AppRouter() {
 
         {/* Páginas que as rotas trazem */}
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={localStorage.getItem("token") ? <Home /> : <Navigate to="/login"/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/:user/:menu" element={<Menu />} />
         </Routes>
