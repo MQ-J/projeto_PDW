@@ -31,7 +31,7 @@ export default function Login() {
         event.preventDefault();
         setLoading(true)
 
-        const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+        const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://projectpwd.herokuapp.com"
         const formData = new FormData(event.target);
 
         try {
@@ -92,7 +92,7 @@ function NewUserModal(props) {
 
             props.setLoading(true)
 
-            const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+            const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://projectpwd.herokuapp.com"
 
             try {
                 await axios.post(`${url}/api/user`, new FormData(event.target));
