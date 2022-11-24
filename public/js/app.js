@@ -8835,16 +8835,10 @@ function AppRouter() {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Routes, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
           path: "/",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Login__WEBPACK_IMPORTED_MODULE_1__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
-          path: "/:user",
           element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Home__WEBPACK_IMPORTED_MODULE_0__["default"], {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
-          path: "/:user/Respect",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Respect__WEBPACK_IMPORTED_MODULE_2__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
-          path: "/:user/StarWars",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Starwars__WEBPACK_IMPORTED_MODULE_3__["default"], {})
+          path: "/login",
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Login__WEBPACK_IMPORTED_MODULE_1__["default"], {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
           path: "/:user/:menu",
           element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Menu__WEBPACK_IMPORTED_MODULE_4__["default"], {})
@@ -9099,7 +9093,7 @@ function Login() {
   var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useNavigate)();
 
   // caso já tenha login, vai pro home
-  localStorage.getItem("user") ? (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+  localStorage.getItem("token") ? (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     navigate(localStorage.getItem("user"));
   }, []) : console.log("faça o login");
 
@@ -9112,7 +9106,7 @@ function Login() {
   // FUNÇÃO PARA FAZER LOGIN
   var auth = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
-      var url, formData, _yield$axios$post, data, menus;
+      var url, formData, _yield$axios$post, data;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -9128,27 +9122,20 @@ function Login() {
               _yield$axios$post = _context.sent;
               data = _yield$axios$post.data;
               localStorage.setItem("token", data.token);
-              localStorage.setItem("user", event.target.name.value);
-              localStorage.setItem("email", res['email']);
-              menus = "";
-              res['menus'].forEach(function (menu) {
-                menus += menu["nome"] + ";" + menu['code'] + " ";
-              });
-              localStorage.setItem("menu", menus);
               navigate(event.target.name.value);
-              _context.next = 22;
+              _context.next = 17;
               break;
-            case 18:
-              _context.prev = 18;
+            case 13:
+              _context.prev = 13;
               _context.t0 = _context["catch"](4);
               setLoading(false);
               setLoginError("alert alert-danger");
-            case 22:
+            case 17:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[4, 18]]);
+      }, _callee, null, [[4, 13]]);
     }));
     return function auth(_x) {
       return _ref.apply(this, arguments);
@@ -9204,35 +9191,49 @@ function NewUserModal(props) {
     setNewUserError = _useState6[1];
 
   // FUNÇÃO PARA CRIAR USUÁRIO
-  var newUser = function newUser(event) {
-    var code = event.target.code.value;
-    if (event.target.pwd.value === event.target.pwd2.value) {
-      props.setLoading(true);
-      var url =  true ? "http://127.0.0.1:8000" : 0;
-      fetch("".concat(url, "/api/ReactMobile/newUser"), {
-        body: new URLSearchParams(new FormData(event.target)),
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        method: "post"
-      }).then(function (res) {
-        return res.json();
-      }).then(function (res) {
-        if (res['status'] == 'ok') {
-          localStorage.setItem("user", event.target.name.value);
-          localStorage.setItem("email", event.target.email.value);
-          localStorage.setItem("menu", 'tarefas;' + code);
-          location.reload();
-        } else {
-          props.setLoading(false);
-          setNewUserError(["d-inline-block alert alert-danger w-75", res['message']]); // aqui se trata todas as respostas Nok da API
+  var newUser = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(event) {
+      var code, url;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              code = event.target.code.value;
+              if (!(event.target.pwd.value === event.target.pwd2.value)) {
+                _context2.next = 15;
+                break;
+              }
+              props.setLoading(true);
+              url =  true ? "http://127.0.0.1:8000" : 0;
+              _context2.prev = 4;
+              _context2.next = 7;
+              return axios.post("".concat(url, "/api/user"), new FormData(event.target));
+            case 7:
+              _context2.next = 12;
+              break;
+            case 9:
+              _context2.prev = 9;
+              _context2.t0 = _context2["catch"](4);
+              setNewUserError(["d-inline-block alert alert-danger w-75", res['message']]); // aqui se trata todas as respostas Nok da API
+            case 12:
+              props.setLoading(false);
+              _context2.next = 16;
+              break;
+            case 15:
+              setNewUserError(["d-inline-block alert alert-danger w-75", "dados inválidos"]);
+            case 16:
+              event.preventDefault();
+            case 17:
+            case "end":
+              return _context2.stop();
+          }
         }
-      });
-    } else {
-      setNewUserError(["d-inline-block alert alert-danger w-75", "dados inválidos"]);
-    }
-    event.preventDefault();
-  };
+      }, _callee2, null, [[4, 9]]);
+    }));
+    return function newUser(_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "modal fade",
     id: "newUserModal",
@@ -9330,12 +9331,6 @@ function Form(props) {
           className: "form-control",
           required: true
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-        type: "text",
-        name: "code",
-        value: Math.random().toString(32).substr(2, 9),
-        readOnly: true,
-        hidden: true
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
       type: "submit",

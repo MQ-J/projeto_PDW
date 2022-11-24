@@ -17,7 +17,7 @@ export default function Login() {
     const navigate = useNavigate();
 
     // caso já tenha login, vai pro home
-    localStorage.getItem("user") ?
+    localStorage.getItem("token") ?
         useEffect(() => {
             navigate(localStorage.getItem("user"))
         }, [])
@@ -38,14 +38,7 @@ export default function Login() {
             const {data} = await axios.post(`${url}/api/auth`, formData);
 
             localStorage.setItem("token", data.token);
-            localStorage.setItem("user", event.target.name.value)
-            localStorage.setItem("email", res['email'])
 
-            let menus = ""
-            res['menus'].forEach(menu => {
-                menus += menu["nome"] + ";" + menu['code'] + " "
-            });
-            localStorage.setItem("menu", menus)
             navigate(event.target.name.value)
         } catch (e) {
             setLoading(false)
@@ -92,7 +85,7 @@ function NewUserModal(props) {
     const [newUserError, setNewUserError] = useState(["d-none", "a"]);
 
     // FUNÇÃO PARA CRIAR USUÁRIO
-    const newUser = (event) => {
+    const newUser = async (event) => {
         let code = event.target.code.value
 
         if (event.target.pwd.value === event.target.pwd2.value) {
@@ -101,28 +94,13 @@ function NewUserModal(props) {
 
             const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
 
-            fetch(
-                `${url}/api/ReactMobile/newUser`,
-                {
-                    body: new URLSearchParams(new FormData(event.target)),
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    method: "post",
-                }
-            ).then((res) => res.json()).then((res) => {
+            try {
+                await axios.post(`${url}/api/user`, new FormData(event.target));
+            } catch (err) {
+                setNewUserError(["d-inline-block alert alert-danger w-75", res['message']]) // aqui se trata todas as respostas Nok da API
+            }
 
-                    if (res['status'] == 'ok') {
-                        localStorage.setItem("user", event.target.name.value)
-                        localStorage.setItem("email", event.target.email.value)
-                        localStorage.setItem("menu", 'tarefas;' + code)
-                        location.reload()
-                    } else {
-                        props.setLoading(false)
-                        setNewUserError(["d-inline-block alert alert-danger w-75", res['message']]) // aqui se trata todas as respostas Nok da API
-                    }
-                }
-            );
+            props.setLoading(false)
 
         } else {
             setNewUserError(["d-inline-block alert alert-danger w-75", "dados inválidos"])
@@ -179,14 +157,6 @@ function Form(props) {
                         <label htmlFor="email" className="form-label">Email:</label>
                         <input type="email" name="email" className="form-control" required/>
                     </div>
-
-                    <input
-                        type="text"
-                        name="code"
-                        value={Math.random().toString(32).substr(2, 9)}
-                        readOnly
-                        hidden
-                    />
                 </>
             }
 

@@ -22,10 +22,8 @@ export function AppRouter() {
 
         {/* Páginas que as rotas trazem */}
         <Routes>
-            <Route path="/" element={<Login/>} />
-            <Route path="/:user" element={<Home />} />
-            <Route path="/:user/Respect" element={<Respect />} />
-            <Route path="/:user/StarWars" element={<StarWars />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login/>} />
             <Route path="/:user/:menu" element={<Menu />} />
         </Routes>
       </Router>

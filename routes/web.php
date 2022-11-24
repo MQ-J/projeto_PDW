@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+
+Route::any("/", function () {
+    return view('index');
+});
+
+Route::any("/{wild}", function () {
+    return view('index');
+});
+
+Route::any("/{wild}/{card}", function () {
     return view('index');
 });
