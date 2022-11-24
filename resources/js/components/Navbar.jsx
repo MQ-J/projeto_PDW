@@ -153,39 +153,70 @@ export function Navbar(props) {
                         </div>
 
                         <div className="modal-body">
-                            <h5>Informações pessoais</h5>
-                            <ul>
-                                <li><b>Usuário: </b>{props.user}</li>
-                                <li><b>Email: </b>{email}</li>
-                            </ul>
-                            <hr />
+                            {
+                                localStorage.getItem("token") && (
+                                    <>
+                                        <h5>Informações pessoais</h5>
+                                        <ul>
+                                            <li><b>Usuário: </b>{props.user}</li>
+                                            <li><b>Email: </b>{email}</li>
+                                        </ul>
+                                        <hr />
+                                    </>
+                                )
+                            }
+
                             <h5>Sobre este site</h5>
                             <ul>
                                 <li>Código fonte: <a className="btn btn-outline-success p-0" role="button" href="https://github.com/MQ-J/ReactMobile">ReactMobile</a> </li>
                                 <li>Versão: {appVersion}</li>
-                                <li>Desenvolvedor: <a className="btn btn-outline-success p-0" role="button" href="https://github.com/MQ-J">MQJ</a> </li>
+                                <li>Desenvolvedores:
+                                    <a className="btn btn-outline-success p-0 me-2" role="button" href="https://github.com/Thunder8598">Thunder8598</a>
+                                    <a className="btn btn-outline-success p-0 me-2" role="button" href="https://github.com/hnrqo">hnrqo</a>
+                                    <a className="btn btn-outline-success p-0 me-2" role="button" href="https://github.com/MQ-J">MQJ</a>
+                                </li>
                             </ul>
-                            <hr />
-                            <h5>Apagar minha conta</h5>
-                            <p>Tenha em mente que isso apagará <b>todas as suas anotações</b>, junto com seu email, senha e usuário.</p>
-                            <button
-                                type="button"
-                                className="btn btn-danger"
-                                onClick={deleteUser}
-                            >
-                                Apagar minha conta
-                            </button>
+
+                            {
+                                localStorage.getItem("token") && (
+                                    <>
+                                        <hr />
+                                        <h5>Apagar minha conta</h5>
+                                        <p>Tenha em mente que isso apagará <b>todas as suas anotações</b>, junto com seu email, senha e usuário.</p>
+                                        <button
+                                            type="button"
+                                            className="btn btn-danger"
+                                            onClick={deleteUser}
+                                        >
+                                            Apagar minha conta
+                                        </button>
+                                    </>
+                                )
+                            }
                         </div>
 
                         <div className="modal-footer border-3 border-dark">
-                            <button
-                                type="button"
-                                className="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                                onClick={removeLogin}
-                            >
-                                Logout
-                            </button>
+                            {
+                                localStorage.getItem("token") ? (
+                                    <button
+                                        type="button"
+                                        className="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                        onClick={removeLogin}
+                                    >
+                                        Logout
+                                    </button>
+                                ) : (
+                                    <a
+                                        type="button"
+                                        className="btn text-white bg-orange"
+                                        href="/login"
+                                    >
+                                        login
+                                    </a>
+                                )
+                            }
+
                         </div>
                     </div>
                 </div>
