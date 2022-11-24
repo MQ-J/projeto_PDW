@@ -92,8 +92,7 @@ function NewUserModal(props) {
 
             props.setLoading(true)
 
-            // const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://projectpwd.herokuapp.com"
-            const url = "https://projectpwd.herokuapp.com"
+            const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://projectpwd.herokuapp.com"
 
             try {
                 await axios.post(`${url}/api/user`, new FormData(event.target));
