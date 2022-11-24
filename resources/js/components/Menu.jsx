@@ -31,7 +31,7 @@ export default function Menu() {
 
   async function getBlocos(user) {
 
-    const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+    const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://projectpwd.herokuapp.com"
 
     var formData = new FormData()
     formData.append('name', user)
@@ -92,7 +92,7 @@ export default function Menu() {
 
     event.preventDefault();
 
-    const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+    const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://projectpwd.herokuapp.com"
 
     var formData = new FormData()
     formData.append('name', user)
@@ -126,7 +126,7 @@ export default function Menu() {
 
   const deleteBloco = (code) => {
 
-    const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+    const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://projectpwd.herokuapp.com"
 
     var formData = new FormData()
     formData.append('name', user)

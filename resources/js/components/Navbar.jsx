@@ -36,7 +36,7 @@ export function Navbar(props) {
     // apaga a conta atual
     const deleteUser = () => {
 
-        const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+        const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://projectpwd.herokuapp.com"
 
         var formData = new FormData();
         formData.append('name', props.user);
@@ -69,7 +69,7 @@ export function Navbar(props) {
 
         setLoading(true)
 
-        const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+        const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://projectpwd.herokuapp.com"
 
         fetch(
             `${url}/api/ReactMobile/newMenu`,
@@ -99,7 +99,7 @@ export function Navbar(props) {
     const deleteMenu = (menu, code, user) => {
         if (confirm("quer mesmo apagar o menu " + menu + "?")) {
 
-            const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+            const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://projectpwd.herokuapp.com"
 
             var formData = new FormData()
             formData.append('name', user)
