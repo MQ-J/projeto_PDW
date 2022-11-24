@@ -22,9 +22,9 @@ export function AppRouter() {
 
         {/* Páginas que as rotas trazem */}
         <Routes>
-            <Route path="/" element={localStorage.getItem("token") ? <Home /> : <Navigate to="/login"/>} />
+            <Route path="/" element={<Menu />} />
             <Route path="/login" element={<Login/>} />
-            <Route path="/:user/:menu" element={<Menu />} />
+            <Route path="/:menu" element={<Menu />} />
         </Routes>
       </Router>
 
