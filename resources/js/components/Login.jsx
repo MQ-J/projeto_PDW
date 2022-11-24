@@ -86,7 +86,7 @@ function NewUserModal(props) {
 
     // FUNÇÃO PARA CRIAR USUÁRIO
     const newUser = async (event) => {
-        let code = event.target.code.value
+        event.preventDefault();
 
         if (event.target.pwd.value === event.target.pwd2.value) {
 
@@ -106,7 +106,6 @@ function NewUserModal(props) {
             setNewUserError(["d-inline-block alert alert-danger w-75", "dados inválidos"])
         }
 
-        event.preventDefault();
     };
 
     return (
