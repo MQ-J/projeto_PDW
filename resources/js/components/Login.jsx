@@ -82,7 +82,7 @@ export default function Login() {
 function NewUserModal(props) {
 
     // className da msg de login incorreto
-    const [newUserError, setNewUserError] = useState(["d-none", "a"]);
+    const [newUserResponse, setNewUserResponse] = useState(["d-none", "a"]);
 
     // FUNÇÃO PARA CRIAR USUÁRIO
     const newUser = async (event) => {
@@ -96,14 +96,15 @@ function NewUserModal(props) {
 
             try {
                 await axios.post(`${url}/api/user`, new FormData(event.target));
+                setNewUserResponse(["d-inline-block alert alert-success w-75", "Usuário criado com o sucesso."])
             } catch (err) {
-                setNewUserError(["d-inline-block alert alert-danger w-75", res['message']]) // aqui se trata todas as respostas Nok da API
+                setNewUserResponse(["d-inline-block alert alert-danger w-75", "Usuário existente."]) // aqui se trata todas as respostas Nok da API
             }
 
             props.setLoading(false)
 
         } else {
-            setNewUserError(["d-inline-block alert alert-danger w-75", "dados inválidos"])
+            setNewUserResponse(["d-inline-block alert alert-danger w-75", "Dados inválidos."])
         }
 
     };
@@ -122,7 +123,7 @@ function NewUserModal(props) {
                     </div>
                     <div className="d-flex justify-content-between modal-footer border-3 border-dark">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <div className={newUserError[0]} role="alert">{newUserError[1]}</div>
+                        <div className={newUserResponse[0]} role="alert">{newUserResponse[1]}</div>
                     </div>
                 </div>
             </div>
