@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { API_BASE_URL } from "../../config";
 
-export function createUsers(name, email, pwd) {
+export function createUser(name, email, pwd) {
     return axios.post(`${API_BASE_URL}/user/`, {
         name: name,
         email: email,

@@ -4,5 +4,6 @@ module.exports = {
             overrideBrowserslist: ['defaults and last 4 versions'],
         }),
         require('postcss-import')(),
+        require('tailwindcss')()
     ],
 };
