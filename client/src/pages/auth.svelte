@@ -35,12 +35,12 @@
                     JSON.stringify({ token: r.data.token })
                 );
                 signedIn = true;
-                // e.target.reset()
+                $redirect("/");
+                e.target.reset()
             })
             .catch((e) => {
                 console.log(e);
                 failedSignIn = true;
-                // e.target.reset()
             });
     }
 </script>
