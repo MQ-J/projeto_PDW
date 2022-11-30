@@ -3,6 +3,7 @@
   - composer install
   - php artisan serve
 - Em outro terminal:
+  - cd client
   - npm i
-  - npm run watch
-- Acessar http://localhost:8000 (ou 8080)
+  - npm run dev
+- Acessar http://localhost:5000
