@@ -36,7 +36,11 @@
                 blockText = "";
                 blockId = -1;
             });
-        } else createBlocks(permalink, target.text.value).then(refreshBlocks);
+        } else {
+            createBlocks(permalink, target.text.value).then(refreshBlocks);
+            blockId = -1;
+            blockText = "";
+        }
     }
 
     function edit(block) {
@@ -52,8 +56,8 @@
     {#await blocks}
         Loading blocks
     {:then blockItems}
-        {#if blockItems.data.length > 0 }
-        <p>Click on a block to select it for edition.</p>
+        {#if blockItems.data.length > 0}
+            <p>Click on a block to select it for edition.</p>
         {/if}
         {#each blockItems.data as block}
             <div class="bg-gray-200 my-1 p-2">
