@@ -13,7 +13,9 @@
 
     let permalink = "";
 
-    let blocks = listBlocks(permalink);
+    $: hasPermalink = permalink.length > 0
+
+    $: blocks = listBlocks(permalink);
 
     menuPermalink.subscribe((value) => {
         permalink = value;
@@ -22,8 +24,6 @@
     function refreshBlocks() {
         blocks = listBlocks(permalink);
     }
-
-    afterUpdate(refreshBlocks);
 
     let blockText = "";
     let blockId = -1;
@@ -49,8 +49,6 @@
     }
 </script>
 
-{permalink}
-
 <Menu />
 <div style="width: 400px">
     {#await blocks}
@@ -71,14 +69,16 @@
             </div>
         {/each}
     {/await}
-    <form on:submit={handleBlockForm} class="border p-2 my-2">
+            
+        <form on:submit={handleBlockForm} class="border p-2 my-2" >
         <h2 class="text-lg font-bold">New block</h2>
         <textarea
             name="text"
             placeholder="What's on your mind?"
             class="w-full border rounded-md p-3"
             bind:value={blockText}
+            disabled={!hasPermalink}
         />
-        <Button>Save</Button>
+        <Button disabled={!hasPermalink }>Save</Button>
     </form>
 </div>
