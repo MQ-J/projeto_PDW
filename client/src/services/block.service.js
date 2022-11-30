@@ -12,7 +12,7 @@ export function createBlocks(permalink, text) {
     });
 }
 
-export function updateBlock(permalink, blockId, text) {
+export function updateBlocks(permalink, blockId, text) {
     return axios.put(`${API_BASE_URL}/menu/${permalink}/block/${blockId}`, {
         text: text,
     });

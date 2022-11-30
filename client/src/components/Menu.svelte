@@ -13,7 +13,7 @@
             Loading menu...
         {:then menuItems}
             {#each menuItems.data as menuItem}
-                <li><button on:click={() => setMenu(menuItem.permalink)} class="bg-blue-10">{menuItem.name}</button></li>
+                <li class="inline-block"><button on:click={() => setMenu(menuItem.permalink)} class="bg-black text-white mr-1 p-1 rounded-md">{menuItem.name}</button></li>
             {/each}
         {/await}
     </u>
