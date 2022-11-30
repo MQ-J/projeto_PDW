@@ -35,6 +35,7 @@
             updateBlocks(permalink, blockId, blockText).then(() => {
                 blockText = "";
                 blockId = -1;
+                refreshBlocks()
             });
         } else {
             createBlocks(permalink, target.text.value).then(refreshBlocks);
