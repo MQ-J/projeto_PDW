@@ -6,7 +6,7 @@ export function listBlocks(permalink) {
     return axios.get(`${API_BASE_URL}/menu/${permalink}/block`);
 }
 
-export function createBlocks(text) {
+export function createBlocks(permalink, text) {
     return axios.post(`${API_BASE_URL}/menu/${permalink}/block`, {
         text: text,
     });

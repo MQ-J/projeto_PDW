@@ -4,8 +4,9 @@
     import { afterUpdate } from "svelte"
     import { getAuthedUser, unauth } from "../services/auth.service";
 
-    const authedUser = getAuthedUser();
+    let authedUser = getAuthedUser();
 
+    afterUpdate(() => {authedUser = getAuthedUser()})
 </script>
 
 <div class="container sm">
