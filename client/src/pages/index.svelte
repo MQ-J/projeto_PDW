@@ -52,6 +52,9 @@
     {#await blocks}
         Loading blocks
     {:then blockItems}
+        {#if blockItems.data.length > 0 }
+        <p>Click on a block to select it for edition.</p>
+        {/if}
         {#each blockItems.data as block}
             <div class="bg-gray-200 my-1 p-2">
                 <span on:click={edit(block)}>{block.text}</span>
