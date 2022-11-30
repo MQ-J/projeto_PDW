@@ -31,7 +31,7 @@
     function handleBlockForm(e) {
         e.preventDefault();
         const target = e.target;
-        if (blockText.length > 0) {
+        if (blockText.length > 0 && blockId != -1) {
             updateBlocks(permalink, blockId, blockText).then(() => {
                 blockText = "";
                 blockId = -1;
