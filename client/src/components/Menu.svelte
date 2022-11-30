@@ -18,6 +18,7 @@
     function refreshMenus() {
         menuList = listMenus();
         if (menuList.length > 0) setMenu(menuList[0].permalink);
+        else setMenu('');
     }
 
     afterUpdate(refreshMenus);
